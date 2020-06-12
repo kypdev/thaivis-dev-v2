@@ -7,7 +7,7 @@ Widget cusBtn({
   action,
 }) {
   return Padding(
-    padding: const EdgeInsets.only(left: 40, right: 40),
+    padding: const EdgeInsets.only(right: 8.0),
     child: RaisedButton(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(30),

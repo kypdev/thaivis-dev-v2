@@ -22,7 +22,7 @@ class Auth {
     if (loginType == 2) {
       Navigator.pushNamed(context, '/register/user');
     } else {
-      debugPrint('vis register');
+      Navigator.pushNamed(context, '/register/visa');
     }
   }
 

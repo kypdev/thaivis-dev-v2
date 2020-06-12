@@ -76,82 +76,85 @@ class _LoginFormState extends State<LoginForm> {
   @override
   Widget build(BuildContext context) {
     return Form(
-      child: Column(
-        children: <Widget>[
-          customTextField(
-            fillColor: Color(0XFFF0F4F8),
-            controller: emailCtrl,
-            prefixIcon: Icon(Icons.email),
-            label: 'อีเมล',
-            val: emailVal,
-          ),
-          SizedBox(height: 10),
-          customTextField(
-            fillColor: Color(0XFFF0F4F8),
-            controller: passwordCtrl,
-            prefixIcon: Icon(Icons.lock),
-            label: 'รหัสผ่าน',
-            val: emailVal,
-          ),
-          SizedBox(height: 35),
-          cusBtn(
-            action: () => login(),
-            text: 'เข้าใช้งาน',
-            color: Color(0xff1367b8),
-          ),
-          SizedBox(height: 12.0),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Radio(
-                value: 1,
-                groupValue: loginType,
-                onChanged: (value) {
-                  setState(() {
-                    loginType = value;
-                  });
-                },
-                activeColor: Colors.blue,
-              ),
-              Text(
-                'วิสาหากิจชุมชน',
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 32.0),
+        child: Column(
+          children: <Widget>[
+            customTextField(
+              fillColor: Color(0XFFF0F4F8),
+              controller: emailCtrl,
+              prefixIcon: Icon(Icons.email),
+              label: 'อีเมล',
+              val: emailVal,
+            ),
+            SizedBox(height: 10),
+            customTextField(
+              fillColor: Color(0XFFF0F4F8),
+              controller: passwordCtrl,
+              prefixIcon: Icon(Icons.lock),
+              label: 'รหัสผ่าน',
+              val: emailVal,
+            ),
+            SizedBox(height: 35),
+            cusBtn(
+              action: () => login(),
+              text: 'เข้าใช้งาน',
+              color: Color(0xff1367b8),
+            ),
+            SizedBox(height: 12.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Radio(
+                  value: 1,
+                  groupValue: loginType,
+                  onChanged: (value) {
+                    setState(() {
+                      loginType = value;
+                    });
+                  },
+                  activeColor: Colors.blue,
+                ),
+                Text(
+                  'วิสาหากิจชุมชน',
+                  style: TextStyle(
+                    color: Colors.blue,
+                    fontSize: 20.0,
+                  ),
+                ),
+                SizedBox(width: 16),
+                Radio(
+                  value: 2,
+                  groupValue: loginType,
+                  onChanged: (value) {
+                    setState(() {
+                      loginType = value;
+                    });
+                  },
+                  activeColor: Colors.blue,
+                ),
+                Text(
+                  'บุคคลทั่วไป',
+                  style: TextStyle(
+                    color: Colors.blue,
+                    fontSize: 20.0,
+                  ),
+                ),
+              ],
+            ),
+            InkWell(
+              onTap: register,
+              child: Text(
+                'ลงทะเบียนผู้ใช้งานใหม่',
                 style: TextStyle(
                   color: Colors.blue,
-                  fontSize: 20.0,
+                  fontSize: 22.0,
+                  fontWeight: FontWeight.bold,
                 ),
-              ),
-              SizedBox(width: 16),
-              Radio(
-                value: 2,
-                groupValue: loginType,
-                onChanged: (value) {
-                  setState(() {
-                    loginType = value;
-                  });
-                },
-                activeColor: Colors.blue,
-              ),
-              Text(
-                'บุคคลทั่วไป',
-                style: TextStyle(
-                  color: Colors.blue,
-                  fontSize: 20.0,
-                ),
-              ),
-            ],
-          ),
-          InkWell(
-            onTap: register,
-            child: Text(
-              'ลงทะเบียนผู้ใช้งานใหม่',
-              style: TextStyle(
-                color: Colors.blue,
-                fontSize: 22.0,
-                fontWeight: FontWeight.bold,
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

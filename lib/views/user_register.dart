@@ -219,59 +219,60 @@ class _FormRegisterState extends State<FormRegister> {
     String conpass = conpassCtrl.text;
 
     _auth.userSignup(context, fname, lname, email, pass, conpass);
-
-
   }
 
   @override
   Widget build(BuildContext context) {
     return Form(
-      child: Column(
-        children: <Widget>[
-          customTextField(
-            controller: firstnameCtrl,
-            label: 'ชื่อ*',
-            prefixIcon: Icon(Icons.person),
-            fillColor: Color(0XFFF0F4F8),
-            val: (value) {},
-          ),
-          customTextField(
-            controller: lastnameCtrl,
-            label: 'นามสกุล*',
-            prefixIcon: Icon(Icons.person),
-            fillColor: Color(0XFFF0F4F8),
-            val: (value) {},
-          ),
-          customTextField(
-            controller: emailCtrl,
-            label: 'อีเมล*',
-            prefixIcon: Icon(Icons.person),
-            fillColor: Color(0XFFF0F4F8),
-            val: (value) {},
-          ),
-          customTextField(
-            controller: passCtrl,
-            label: 'รหัสผ่าน*',
-            prefixIcon: Icon(Icons.person),
-            fillColor: Color(0XFFF0F4F8),
-            val: (value) {},
-          ),
-          customTextField(
-            controller: conpassCtrl,
-            label: 'ยืนยันรหัสผ่าน*',
-            prefixIcon: Icon(Icons.person),
-            fillColor: Color(0XFFF0F4F8),
-            val: (value) {},
-          ),
-          SizedBox(height: 20.0),
-          cusBtn(
-            action: () {
-              retister();
-            },
-            color: Color(0XFF1367B8),
-            text: 'ลงทะเบียน',
-          ),
-        ],
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 32.0),
+        child: Column(
+          children: <Widget>[
+            customTextField(
+              controller: firstnameCtrl,
+              label: 'ชื่อ*',
+              prefixIcon: Icon(Icons.person),
+              fillColor: Color(0XFFF0F4F8),
+              val: (value) {},
+            ),
+            customTextField(
+              controller: lastnameCtrl,
+              label: 'นามสกุล*',
+              prefixIcon: Icon(Icons.person),
+              fillColor: Color(0XFFF0F4F8),
+              val: (value) {},
+            ),
+            customTextField(
+              controller: emailCtrl,
+              label: 'อีเมล*',
+              prefixIcon: Icon(Icons.person),
+              fillColor: Color(0XFFF0F4F8),
+              val: (value) {},
+            ),
+            customTextField(
+              controller: passCtrl,
+              label: 'รหัสผ่าน*',
+              prefixIcon: Icon(Icons.person),
+              fillColor: Color(0XFFF0F4F8),
+              val: (value) {},
+            ),
+            customTextField(
+              controller: conpassCtrl,
+              label: 'ยืนยันรหัสผ่าน*',
+              prefixIcon: Icon(Icons.person),
+              fillColor: Color(0XFFF0F4F8),
+              val: (value) {},
+            ),
+            SizedBox(height: 20.0),
+            cusBtn(
+              action: () {
+                retister();
+              },
+              color: Color(0XFF1367B8),
+              text: 'ลงทะเบียน',
+            ),
+          ],
+        ),
       ),
     );
   }

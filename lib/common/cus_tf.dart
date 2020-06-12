@@ -10,7 +10,7 @@ Widget customTextField({
   fillColor,
 }) {
   return Padding(
-    padding: const EdgeInsets.only(left: 40, right: 40, top: 10),
+    padding: const EdgeInsets.only(right: 8.0, top: 10),
     child: TextFormField(
       controller: controller,
       validator: val,

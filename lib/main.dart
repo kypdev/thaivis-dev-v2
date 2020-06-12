@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:thaivis_dev_v2/views/login_screen.dart';
-
+import 'package:thaivis_dev_v2/views/visa_register.dart';
 import 'views/splash_screen.dart';
 import 'views/user_register.dart';
 
@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => SplashScreen(),
         '/login': (context) => LoginScreen(),
         '/register/user': (context) => UserRegister(),
+        '/register/visa': (context) => VisaRegister(),
       },
     );
   }
