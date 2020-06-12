@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:thaivis_dev_v2/views/add_product.dart';
 import 'package:thaivis_dev_v2/views/home_user.dart';
 import 'package:thaivis_dev_v2/views/home_visa.dart';
 import 'package:thaivis_dev_v2/views/login_screen.dart';
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
         '/home/visa': (context) => HomeVisa(),
         '/home/user': (context) => HomeUser(),
         '/visa/manage': (context) => ManageProduct(),
+        '/visa/addPro': (context) => AddProduct(),
       },
     );
   }
