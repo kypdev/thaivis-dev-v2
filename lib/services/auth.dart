@@ -40,4 +40,11 @@ class Auth {
       print('start register');
     }
   }
+
+  loginService(context, email) {
+    if (email == 'admin')
+      Navigator.pushReplacementNamed(context, '/home/visa');
+    else
+      Navigator.pushReplacementNamed(context, '/home/user');
+  }
 }

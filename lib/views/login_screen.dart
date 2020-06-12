@@ -66,6 +66,8 @@ class _LoginFormState extends State<LoginForm> {
 
   login() {
     debugPrint('login');
+    String email = emailCtrl.text.trim();
+    _auth.loginService(context, email);
   }
 
   register() {

@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:thaivis_dev_v2/common/cus_appbar.dart';
 import 'package:thaivis_dev_v2/common/cus_btn.dart';
 import 'dart:io';
-
 import 'package:thaivis_dev_v2/common/cus_tf.dart';
 import 'package:thaivis_dev_v2/services/auth.dart';
 
@@ -179,10 +179,15 @@ class _UserRegisterState extends State<UserRegister> {
     return SafeArea(
       child: Scaffold(
           backgroundColor: Color(0XFFFFFFFF),
-          appBar: AppBar(
-            title: Text('ลงทะเบียนบุคคลทั่วไป'),
-            centerTitle: true,
+          appBar: 
+          cusAppbar(
+            context: context,
+            title: 'ลงทะเบียนบุคคลทั่วไป',
           ),
+          
+          
+          
+          
           body: Center(
             child: SingleChildScrollView(
               child: Column(

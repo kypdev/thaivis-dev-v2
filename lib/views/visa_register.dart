@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:thaivis_dev_v2/common/cus_appbar.dart';
 import 'package:thaivis_dev_v2/common/cus_btn.dart';
 import 'package:thaivis_dev_v2/common/cus_tf.dart';
 
@@ -178,9 +179,9 @@ class _VisaRegisterState extends State<VisaRegister> {
     return SafeArea(
       child: Scaffold(
           backgroundColor: Color(0XFFFFFFFF),
-          appBar: AppBar(
-            title: Text('ลงทะเบียนวิสาหากิจชุมชน'),
-            centerTitle: true,
+          appBar: cusAppbar(
+            context: context,
+            title: 'ลงทะเบียนวิสาหากิจชุมชน',
           ),
           body: Center(
             child: SingleChildScrollView(
@@ -227,7 +228,7 @@ class _FormRegisterState extends State<FormRegister> {
   Widget build(BuildContext context) {
     return Form(
       child: Padding(
-        padding:  EdgeInsets.symmetric(horizontal: 32.0),
+        padding: EdgeInsets.symmetric(horizontal: 32.0),
         child: Column(
           children: <Widget>[
             customTextField(
