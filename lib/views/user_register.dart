@@ -1,8 +1,11 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:thaivis_dev_v2/common/cus_btn.dart';
 import 'dart:io';
+
+import 'package:thaivis_dev_v2/common/cus_tf.dart';
+import 'package:thaivis_dev_v2/services/auth.dart';
 
 class UserRegister extends StatefulWidget {
   @override
@@ -185,18 +188,91 @@ class _UserRegisterState extends State<UserRegister> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  RaisedButton(
-                    onPressed: () {
-                      print('test');
-                      // chooseImage();
-                    },
-                    child: Text('test'),
-                  ),
                   showImage(),
+                  SizedBox(height: 16.0),
+                  FormRegister(),
                 ],
               ),
             ),
           )),
+    );
+  }
+}
+
+class FormRegister extends StatefulWidget {
+  @override
+  _FormRegisterState createState() => _FormRegisterState();
+}
+
+class _FormRegisterState extends State<FormRegister> {
+  TextEditingController firstnameCtrl = new TextEditingController();
+  TextEditingController lastnameCtrl = new TextEditingController();
+  TextEditingController emailCtrl = new TextEditingController();
+  TextEditingController passCtrl = new TextEditingController();
+  TextEditingController conpassCtrl = new TextEditingController();
+  Auth _auth = new Auth();
+  retister() {
+    String fname = firstnameCtrl.text.trim();
+    String lname = lastnameCtrl.text.trim();
+    String email = emailCtrl.text.trim();
+    String pass = passCtrl.text;
+    String conpass = conpassCtrl.text;
+
+    _auth.userSignup(context, fname, lname, email, pass, conpass);
+
+
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+      child: Column(
+        children: <Widget>[
+          customTextField(
+            controller: firstnameCtrl,
+            label: 'ชื่อ*',
+            prefixIcon: Icon(Icons.person),
+            fillColor: Color(0XFFF0F4F8),
+            val: (value) {},
+          ),
+          customTextField(
+            controller: lastnameCtrl,
+            label: 'นามสกุล*',
+            prefixIcon: Icon(Icons.person),
+            fillColor: Color(0XFFF0F4F8),
+            val: (value) {},
+          ),
+          customTextField(
+            controller: emailCtrl,
+            label: 'อีเมล*',
+            prefixIcon: Icon(Icons.person),
+            fillColor: Color(0XFFF0F4F8),
+            val: (value) {},
+          ),
+          customTextField(
+            controller: passCtrl,
+            label: 'รหัสผ่าน*',
+            prefixIcon: Icon(Icons.person),
+            fillColor: Color(0XFFF0F4F8),
+            val: (value) {},
+          ),
+          customTextField(
+            controller: conpassCtrl,
+            label: 'ยืนยันรหัสผ่าน*',
+            prefixIcon: Icon(Icons.person),
+            fillColor: Color(0XFFF0F4F8),
+            val: (value) {},
+          ),
+          SizedBox(height: 20.0),
+          cusBtn(
+            action: () {
+              retister();
+            },
+            color: Color(0XFF1367B8),
+            text: 'ลงทะเบียน',
+          ),
+        ],
+      ),
     );
   }
 }

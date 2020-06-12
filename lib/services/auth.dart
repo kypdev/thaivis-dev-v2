@@ -25,4 +25,19 @@ class Auth {
       debugPrint('vis register');
     }
   }
+
+  userSignup(
+    context,
+    fname,
+    lname,
+    email,
+    pass,
+    conpass,
+  ) {
+    if (pass != conpass) {
+      print('pass not match');
+    } else {
+      print('start register');
+    }
+  }
 }

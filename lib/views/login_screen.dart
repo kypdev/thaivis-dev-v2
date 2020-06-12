@@ -18,16 +18,16 @@ class _LoginScreenState extends State<LoginScreen> {
     return SafeArea(
       child: Scaffold(
           body: Center(
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  logo(),
-                  LoginForm(),
-                ],
-              ),
-            ),
-          )),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              logo(),
+              LoginForm(),
+            ],
+          ),
+        ),
+      )),
     );
   }
 }
@@ -79,6 +79,7 @@ class _LoginFormState extends State<LoginForm> {
       child: Column(
         children: <Widget>[
           customTextField(
+            fillColor: Color(0XFFF0F4F8),
             controller: emailCtrl,
             prefixIcon: Icon(Icons.email),
             label: 'อีเมล',
@@ -86,6 +87,7 @@ class _LoginFormState extends State<LoginForm> {
           ),
           SizedBox(height: 10),
           customTextField(
+            fillColor: Color(0XFFF0F4F8),
             controller: passwordCtrl,
             prefixIcon: Icon(Icons.lock),
             label: 'รหัสผ่าน',

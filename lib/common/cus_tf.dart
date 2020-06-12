@@ -7,6 +7,7 @@ Widget customTextField({
   label,
   prefixIcon,
   suffixIcon,
+  fillColor,
 }) {
   return Padding(
     padding: const EdgeInsets.only(left: 40, right: 40, top: 10),
@@ -17,7 +18,7 @@ Widget customTextField({
         prefixIcon: prefixIcon,
         labelText: label,
         suffixIcon: suffixIcon,
-        fillColor: Colors.white,
+        fillColor: fillColor,
         filled: true,
         border: InputBorder.none,
         enabledBorder: OutlineInputBorder(
