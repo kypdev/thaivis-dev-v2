@@ -179,15 +179,10 @@ class _UserRegisterState extends State<UserRegister> {
     return SafeArea(
       child: Scaffold(
           backgroundColor: Color(0XFFFFFFFF),
-          appBar: 
-          cusAppbar(
+          appBar: cusAppbar(
             context: context,
             title: 'ลงทะเบียนบุคคลทั่วไป',
           ),
-          
-          
-          
-          
           body: Center(
             child: SingleChildScrollView(
               child: Column(

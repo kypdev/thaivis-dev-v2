@@ -8,9 +8,7 @@ class ManageProduct extends StatefulWidget {
 }
 
 class _ManageProductState extends State<ManageProduct> {
-
-  final Visa _visa = new Visa();
-
+  Visa _visa = new Visa();
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +25,7 @@ class _ManageProductState extends State<ManageProduct> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(30.0),
           ),
-          label:  Text(
+          label: Text(
             'เพิ่มข้อมูล',
             style: TextStyle(
               color: Colors.white,

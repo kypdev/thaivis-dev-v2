@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 
 class Visa {
-  void goManageProduct(context){
+
+  void goManageProduct(context) {
     Navigator.pushNamed(context, '/visa/manage');
   }
-  
-  void goAddProduct(context){
+
+  void goAddProduct(context) {
     Navigator.pushNamed(context, '/visa/addPro');
   }
   
