@@ -45,43 +45,23 @@ class Auth {
   }
 
   // Process register user
-  userSignup(
-    context,
-    fname,
-    lname,
-    email,
-    pass,
-    conpass,
-  ) {
-    if (pass != conpass) {
-      print('pass not match');
-    } else {
-      print('start register');
-      print('signup: $fname, $lname, $email, $pass');
-
-      try {
-        auth.createUserWithEmailAndPassword(email: email, password: pass).then(
-            (currentUser) => firestore
-                    .collection('users')
-                    .document(currentUser.user.uid)
-                    .setData({
-                  'firstname': fname,
-                  'lastname': lname,
-                  'email': email,
-                  'uid': currentUser.user.uid,
-                  'type': 'user'
-                }).whenComplete(() {
-                  print('signup: ${currentUser.user.uid} ok');
-                  Navigator.pushReplacementNamed(context, '/home/user');
-                }).catchError((e) {
-                  print('signupErr: ${e.runtimeType}');
-                }));
-      } on Exception catch (e) {
-        print('err: $e');
-      } catch (ee) {
-        print('errr: $ee');
-      }
-    }
+  userSignup(context, fname, lname, email, pass) {
+    auth.createUserWithEmailAndPassword(email: email, password: pass).then(
+        (currentUser) => firestore
+                .collection('users')
+                .document(currentUser.user.uid)
+                .setData({
+              'firstname': fname,
+              'lastname': lname,
+              'email': email,
+              'uid': currentUser.user.uid,
+              'type': 'user'
+            }).then((_) {
+              print('signup: success ${currentUser.user.uid} ok');
+              // Navigator.pushReplacementNamed(context, '/home/user');
+            }).catchError((e) {
+              print('signupErr: $e');
+            }));
   }
 
   visaSignup(
@@ -156,11 +136,10 @@ class Auth {
     //   Navigator.pushReplacementNamed(context, '/home/user');
   }
 
-  signOut(context){
+  signOut(context) {
     print('logout');
-    auth.signOut().then((_){
+    auth.signOut().then((_) {
       Navigator.pushReplacementNamed(context, '/login');
     });
   }
-
 }

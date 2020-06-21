@@ -15,7 +15,7 @@ class UserProfile extends StatefulWidget {
 class _UserProfileState extends State<UserProfile> {
   Auth auth = new Auth();
 
-  void logout(){
+  void logout() {
     auth.signOut(context);
   }
 
@@ -36,8 +36,10 @@ class _UserProfileState extends State<UserProfile> {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Image.network(
+                'https://firebasestorage.googleapis.com/v0/b/thaivis-88ffb.appspot.com/o/%E0%B8%B5userprofile%2Fimage_picker3875567606661929801.jpg?alt=media&token=796a5802-e7aa-4c24-8c1f-bbeea7e347ff'),
             cusBtn(
-              action: ()=> logout(),
+              action: () => logout(),
               color: Colors.red,
               text: 'ออกจากระบบ',
             ),

@@ -82,6 +82,7 @@ class _LoginFormState extends State<LoginForm> {
         child: Column(
           children: <Widget>[
             customTextField(
+              secureText: false,
               fillColor: Color(0XFFF0F4F8),
               controller: emailCtrl,
               prefixIcon: Icon(Icons.email),
@@ -90,6 +91,7 @@ class _LoginFormState extends State<LoginForm> {
             ),
             SizedBox(height: 10),
             customTextField(
+              secureText: true,
               fillColor: Color(0XFFF0F4F8),
               controller: passwordCtrl,
               prefixIcon: Icon(Icons.lock),

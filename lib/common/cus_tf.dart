@@ -8,10 +8,12 @@ Widget customTextField({
   prefixIcon,
   suffixIcon,
   fillColor,
+  secureText
 }) {
   return Padding(
     padding: const EdgeInsets.only(right: 8.0, top: 10),
     child: TextFormField(
+      obscureText: secureText,
       controller: controller,
       validator: val,
       decoration: InputDecoration(
