@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:thaivis_dev_v2/services/auth.dart';
 import 'package:thaivis_dev_v2/services/visa.dart';
 
 class HomeVisa extends StatefulWidget {
@@ -8,6 +9,7 @@ class HomeVisa extends StatefulWidget {
 
 class _HomeVisaState extends State<HomeVisa> {
   final Visa _visa = new Visa();
+  Auth auth = new Auth();
 
   Widget showImage() {
     return Column(
@@ -82,7 +84,9 @@ class _HomeVisaState extends State<HomeVisa> {
                   cardMenu(
                     image: 'assets/images/menu.png',
                     text: 'ออกจากระบบ',
-                    action: () {},
+                    action: () {
+                      auth.signOut(context);
+                    },
                   ),
                 ],
               ),

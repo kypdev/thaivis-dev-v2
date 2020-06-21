@@ -78,7 +78,7 @@ class Auth {
                 }));
       } on Exception catch (e) {
         print('err: $e');
-      }catch (ee){
+      } catch (ee) {
         print('errr: $ee');
       }
     }
@@ -129,10 +129,38 @@ class Auth {
     }
   }
 
-  loginService(context, email) {
-    if (email == 'admin')
-      Navigator.pushReplacementNamed(context, '/home/visa');
-    else
-      Navigator.pushReplacementNamed(context, '/home/user');
+  signWighEmail(context, email, pass, loginType) async {
+    print('login: $email, $pass, $loginType');
+
+    if (loginType == 1) {
+      auth.signInWithEmailAndPassword(email: email, password: pass).then((_) {
+        Navigator.pushReplacementNamed(context, '/home/visa');
+      }).catchError((e) {
+        debugPrint('loginErr: $e');
+      });
+      // print('visa login');
+    } else {
+      auth.signInWithEmailAndPassword(email: email, password: pass).then((_) {
+        print('user login success');
+        Navigator.pushReplacementNamed(context, '/home/user');
+      }).catchError((e) {
+        debugPrint('loginErr: $e');
+      });
+
+      // print('user login');
+    }
+
+    // if (email == 'admin')
+    //   Navigator.pushReplacementNamed(context, '/home/visa');
+    // else
+    //   Navigator.pushReplacementNamed(context, '/home/user');
   }
+
+  signOut(context){
+    print('logout');
+    auth.signOut().then((_){
+      Navigator.pushReplacementNamed(context, '/login');
+    });
+  }
+
 }
