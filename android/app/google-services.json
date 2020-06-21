@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "762062156834",
+    "firebase_url": "https://thaivis-88ffb.firebaseio.com",
+    "project_id": "thaivis-88ffb",
+    "storage_bucket": "thaivis-88ffb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:762062156834:android:7e9a3ab79ead41885b867b",
+        "android_client_info": {
+          "package_name": "com.sau.nongk.thaivis_dev_v2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "762062156834-m6utupqv5o8pcj6t0hmbklsff8hd50nk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcQbpjzYjHeLqHTvaIj7TsSf_ik0WnuzU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "762062156834-m6utupqv5o8pcj6t0hmbklsff8hd50nk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

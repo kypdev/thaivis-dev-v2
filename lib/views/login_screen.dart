@@ -4,7 +4,6 @@ import 'package:thaivis_dev_v2/common/cus_tf.dart';
 import 'package:thaivis_dev_v2/services/auth.dart';
 
 final Color scaffColor = Color(0xfff0f4f8);
-
 final Auth _auth = new Auth();
 
 class LoginScreen extends StatefulWidget {

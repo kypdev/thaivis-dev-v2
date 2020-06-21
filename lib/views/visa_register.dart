@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:thaivis_dev_v2/common/cus_appbar.dart';
 import 'package:thaivis_dev_v2/common/cus_btn.dart';
 import 'package:thaivis_dev_v2/common/cus_tf.dart';
+import 'package:thaivis_dev_v2/services/auth.dart';
 
 class VisaRegister extends StatefulWidget {
   @override
@@ -13,11 +14,58 @@ class VisaRegister extends StatefulWidget {
 }
 
 class _VisaRegisterState extends State<VisaRegister> {
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Scaffold(
+          backgroundColor: Color(0XFFFFFFFF),
+          appBar: cusAppbar(
+            context: context,
+            title: 'ลงทะเบียนวิสาหากิจชุมชน',
+          ),
+          body: Center(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 28.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    FormRegister(),
+                  ],
+                ),
+              ),
+            ),
+          )),
+    );
+  }
+}
+
+class FormRegister extends StatefulWidget {
+  @override
+  _FormRegisterState createState() => _FormRegisterState();
+}
+
+class _FormRegisterState extends State<FormRegister> {
+  TextEditingController visanameCtrl = new TextEditingController();
+  TextEditingController addrNumCtrl = new TextEditingController();
+  TextEditingController firstnameCtrl = new TextEditingController();
+  TextEditingController roadCtrl = new TextEditingController();
+  TextEditingController subDistrictCtrl = new TextEditingController();
+  TextEditingController districtCtrl = new TextEditingController();
+  TextEditingController provinceCtrl = new TextEditingController();
+  TextEditingController zipCodeCtrl = new TextEditingController();
+  TextEditingController telCtrl = new TextEditingController();
+  TextEditingController locationCtrl = new TextEditingController();
+  TextEditingController emailCtrl = new TextEditingController();
+  TextEditingController passCtrl = new TextEditingController();
+  TextEditingController conpassCtrl = new TextEditingController();
+
   Future<File> file;
   String status = '';
   String base64Image;
   File tmpFile;
   String errMessage = 'Error Uploading Image';
+  Auth auth = new Auth();
 
   void chooseImage() {
     showModalBottomSheet(
@@ -174,55 +222,24 @@ class _VisaRegisterState extends State<VisaRegister> {
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-          backgroundColor: Color(0XFFFFFFFF),
-          appBar: cusAppbar(
-            context: context,
-            title: 'ลงทะเบียนวิสาหากิจชุมชน',
-          ),
-          body: Center(
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 28.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    showImage(),
-                    SizedBox(height: 16.0),
-                    FormRegister(),
-                  ],
-                ),
-              ),
-            ),
-          )),
-    );
+  void retister() {
+    print('visa regis');
+    String visaName = visanameCtrl.text.trim();
+    String addrNo = addrNumCtrl.text.trim();
+    String road = roadCtrl.text.trim();
+    String subDistrict = subDistrictCtrl.text.trim();
+    String district = districtCtrl.text.trim();
+    String province = provinceCtrl.text.trim();
+    String zipCode = zipCodeCtrl.text.trim();
+    String tel = telCtrl.text.trim();
+    String location = locationCtrl.text.trim();
+    String email = emailCtrl.text.trim();
+    String pass = passCtrl.text.trim();
+    String conpass = conpassCtrl.text.trim();
+
+
+    auth.visaSignup(context, visaName, addrNo, road, subDistrict, district, province, zipCode, tel, location, email, pass, conpass);
   }
-}
-
-class FormRegister extends StatefulWidget {
-  @override
-  _FormRegisterState createState() => _FormRegisterState();
-}
-
-class _FormRegisterState extends State<FormRegister> {
-  TextEditingController visanameCtrl = new TextEditingController();
-  TextEditingController addrNumCtrl = new TextEditingController();
-  TextEditingController firstnameCtrl = new TextEditingController();
-  TextEditingController roadCtrl = new TextEditingController();
-  TextEditingController subDistrictCtrl = new TextEditingController();
-  TextEditingController districtCtrl = new TextEditingController();
-  TextEditingController provinceCtrl = new TextEditingController();
-  TextEditingController zipCodeCtrl = new TextEditingController();
-  TextEditingController telCtrl = new TextEditingController();
-  TextEditingController locationCtrl = new TextEditingController();
-  TextEditingController emailCtrl = new TextEditingController();
-  TextEditingController passCtrl = new TextEditingController();
-  TextEditingController conpassCtrl = new TextEditingController();
-
-  void retister() {}
 
   @override
   Widget build(BuildContext context) {
@@ -231,6 +248,8 @@ class _FormRegisterState extends State<FormRegister> {
         padding: EdgeInsets.symmetric(horizontal: 32.0),
         child: Column(
           children: <Widget>[
+            showImage(),
+            SizedBox(height: 16.0),
             customTextField(
               controller: visanameCtrl,
               label: 'ชื่อวิสาหกิจชุมชน*',

@@ -13,7 +13,39 @@ class UserRegister extends StatefulWidget {
 }
 
 class _UserRegisterState extends State<UserRegister> {
-  Future<File> file;
+ 
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Scaffold(
+          backgroundColor: Color(0XFFFFFFFF),
+          appBar: cusAppbar(
+            context: context,
+            title: 'ลงทะเบียนบุคคลทั่วไป',
+          ),
+          body: Center(
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  
+                  SizedBox(height: 16.0),
+                  FormRegister(),
+                ],
+              ),
+            ),
+          )),
+    );
+  }
+}
+
+class FormRegister extends StatefulWidget {
+  @override
+  _FormRegisterState createState() => _FormRegisterState();
+}
+
+class _FormRegisterState extends State<FormRegister> {
+   Future<File> file;
   String status = '';
   String base64Image;
   File tmpFile;
@@ -174,44 +206,15 @@ class _UserRegisterState extends State<UserRegister> {
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-          backgroundColor: Color(0XFFFFFFFF),
-          appBar: cusAppbar(
-            context: context,
-            title: 'ลงทะเบียนบุคคลทั่วไป',
-          ),
-          body: Center(
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  showImage(),
-                  SizedBox(height: 16.0),
-                  FormRegister(),
-                ],
-              ),
-            ),
-          )),
-    );
-  }
-}
-
-class FormRegister extends StatefulWidget {
-  @override
-  _FormRegisterState createState() => _FormRegisterState();
-}
-
-class _FormRegisterState extends State<FormRegister> {
   TextEditingController firstnameCtrl = new TextEditingController();
   TextEditingController lastnameCtrl = new TextEditingController();
   TextEditingController emailCtrl = new TextEditingController();
   TextEditingController passCtrl = new TextEditingController();
   TextEditingController conpassCtrl = new TextEditingController();
   Auth _auth = new Auth();
+  
   retister() {
+    
     String fname = firstnameCtrl.text.trim();
     String lname = lastnameCtrl.text.trim();
     String email = emailCtrl.text.trim();
@@ -219,6 +222,8 @@ class _FormRegisterState extends State<FormRegister> {
     String conpass = conpassCtrl.text;
 
     _auth.userSignup(context, fname, lname, email, pass, conpass);
+
+    
   }
 
   @override
@@ -228,6 +233,8 @@ class _FormRegisterState extends State<FormRegister> {
         padding: EdgeInsets.symmetric(horizontal: 32.0),
         child: Column(
           children: <Widget>[
+            showImage(),
+            SizedBox(height: 20.0),
             customTextField(
               controller: firstnameCtrl,
               label: 'ชื่อ*',
