@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -240,7 +239,7 @@ class _FormRegisterState extends State<FormRegister> {
     String downloadUrl = await snapshotTask.ref.getDownloadURL();
     
     if (downloadUrl != null) {
-      updateImageProfile.updatePro(downloadUrl.toString(), context).then((_) {
+      updateImageProfile.updatePro(downloadUrl.toString(), context).then((val) {
         print('update image profile success');
         Navigator.pushReplacementNamed(context, '/home/user');
       }).catchError((e) {
