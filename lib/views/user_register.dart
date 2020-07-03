@@ -64,6 +64,7 @@ class _FormRegisterState extends State<FormRegister> {
   UpdateImageProfile updateImageProfile = new UpdateImageProfile();
   FirebaseAuth auth = FirebaseAuth.instance;
   Firestore firestore = Firestore.instance;
+  bool loading;
 
   String emailValidator(String value) {
     Pattern pattern =
@@ -240,9 +241,12 @@ class _FormRegisterState extends State<FormRegister> {
     String downloadUrl = await snapshotTask.ref.getDownloadURL();
 
     if (downloadUrl != null) {
-      updateImageProfile.updatePro(downloadUrl.toString(), context).then((val) {
+      updateImageProfile
+          .updateImageUserProfile(downloadUrl.toString(), context)
+          .then((val) {
         print('update image profile success');
-        Navigator.pushReplacementNamed(context, '/home/user');
+        // Navigator.pushReplacementNamed(context, '/home');
+        
       }).catchError((e) {
         print('upload error ' + e);
       });
@@ -274,14 +278,14 @@ class _FormRegisterState extends State<FormRegister> {
                   'email': email,
                   'uid': currentUser.user.uid,
                   'role': 'user'
-                }).then((_) {
-                  print('signup: success ${currentUser.user.uid} ok');
-                  Navigator.pushReplacementNamed(context, '/home/user');
-                  // Navigator.pushReplacement(
-                  //     context,
-                  //     MaterialPageRoute(
-                  //         builder: (context) => UserBottomNavHome()));
-                  // Navigator.pushAndRemoveUntil(context, newRoute, predicate)
+                }).whenComplete(() {
+                  
+                  uploadImage(context);
+                  print('signupsuccess');
+                  // Navigator.pushReplacementNamed(context, '/home');
+
+
+
                 }).catchError((e) {
                   print('signupErr: $e');
                 }));
@@ -309,6 +313,24 @@ class _FormRegisterState extends State<FormRegister> {
         print('password not match!!');
       }
     }
+  }
+
+  @override
+  void initState() {
+    loading = false;
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    firstnameCtrl.clear();
+    lastnameCtrl.clear();
+    emailCtrl.clear();
+    passCtrl.clear();
+    conpassCtrl.clear();
+
+    super.dispose();
   }
 
   @override
