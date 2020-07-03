@@ -110,24 +110,23 @@ class Auth {
   }
 
   signWighEmail(context, email, pass, loginType) async {
-    print('login: $email, $pass, $loginType');
+    // print('login: $email, $pass, $loginType');
 
     if (loginType == 1) {
-      auth.signInWithEmailAndPassword(email: email, password: pass).then((_) {
-        Navigator.pushReplacementNamed(context, '/home/visa');
-      }).catchError((e) {
-        debugPrint('loginErr: $e');
-      });
-      // print('visa login');
+      // auth.signInWithEmailAndPassword(email: email, password: pass).then((_) {
+      //   Navigator.pushReplacementNamed(context, '/home/visa');
+      // }).catchError((e) {
+      //   debugPrint('loginErr: $e');
+      // });
+      print('loginType: $loginType');
     } else {
-      auth.signInWithEmailAndPassword(email: email, password: pass).then((_) {
-        print('user login success');
-        Navigator.pushReplacementNamed(context, '/home/user');
-      }).catchError((e) {
-        debugPrint('loginErr: $e');
-      });
+      print('loginType: $loginType');
+      
+      // auth.signInWithEmailAndPassword(email: email, password: pass)
 
-      // print('user login');
+
+
+
     }
 
     // if (email == 'admin')

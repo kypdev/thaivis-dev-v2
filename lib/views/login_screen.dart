@@ -70,8 +70,16 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   register() {
-    debugPrint('$loginType');
-    _auth.userRegister(context, loginType);
+    print('register: $loginType');
+    if (loginType == 1) {
+      Navigator.pushNamed(context, '/register/visa');
+    } else if (loginType == 2) {
+      Navigator.pushNamed(context, '/register/user');
+    } else {
+      print('login type not found');
+    }
+
+    // _auth.userRegister(context, loginType);
   }
 
   @override

@@ -12,6 +12,7 @@ class _HomeUserState extends State<HomeUser> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Color(0XFFFFFFFF),
+        drawer: Container(),
         appBar: cusAppbar(
           context: context,
           title: 'วิสาหกิจชุมชน (บุคคลทั่วไป)',

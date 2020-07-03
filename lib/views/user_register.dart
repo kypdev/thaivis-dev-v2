@@ -10,6 +10,7 @@ import 'package:thaivis_dev_v2/common/cus_tf.dart';
 import 'package:thaivis_dev_v2/services/auth.dart';
 import 'package:path/path.dart';
 import 'package:thaivis_dev_v2/services/update_image_profile.dart';
+import 'package:thaivis_dev_v2/views/user_bottom_nav_bar.dart';
 
 class UserRegister extends StatefulWidget {
   @override
@@ -237,7 +238,7 @@ class _FormRegisterState extends State<FormRegister> {
     StorageUploadTask task = firebaseStorageRef.putFile(_imageFile);
     StorageTaskSnapshot snapshotTask = await task.onComplete;
     String downloadUrl = await snapshotTask.ref.getDownloadURL();
-    
+
     if (downloadUrl != null) {
       updateImageProfile.updatePro(downloadUrl.toString(), context).then((val) {
         print('update image profile success');
@@ -257,30 +258,55 @@ class _FormRegisterState extends State<FormRegister> {
       String conpass = conpassCtrl.text;
       // print('login: $fname, $lname, $email, $pass, $conpass, ');
 
-      if (pass != conpass) {
-        print('alert password not match');
-      } else {
-        print('password match');
+      if (pass == conpass) {
+        print('user register password matched');
+        print('firstname: $fname, lastname: $lname, password: $pass');
+
         // await _auth.userSignup(context, fname, lname, email, pass);
+
+        auth.createUserWithEmailAndPassword(email: email, password: pass).then(
+            (currentUser) => firestore
+                    .collection('users')
+                    .document(currentUser.user.uid)
+                    .setData({
+                  'firstname': fname,
+                  'lastname': lname,
+                  'email': email,
+                  'uid': currentUser.user.uid,
+                  'role': 'user'
+                }).then((_) {
+                  print('signup: success ${currentUser.user.uid} ok');
+                  Navigator.pushReplacementNamed(context, '/home/user');
+                  // Navigator.pushReplacement(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: (context) => UserBottomNavHome()));
+                  // Navigator.pushAndRemoveUntil(context, newRoute, predicate)
+                }).catchError((e) {
+                  print('signupErr: $e');
+                }));
+
         // await uploadImage(context);
         // Navigator.pushReplacementNamed(context, '/home/user');
-        auth.createUserWithEmailAndPassword(email: email, password: pass).then(
-        (currentUser) => firestore
-                .collection('users')
-                .document(currentUser.user.uid)
-                .setData({
-              'firstname': fname,
-              'lastname': lname,
-              'email': email,
-              'uid': currentUser.user.uid,
-              'type': 'user'
-            }).then((user) {
-              print('signup: success ${currentUser.user.uid} ok');
-              uploadImage(context);
-              Navigator.pushReplacementNamed(context, '/home/user');
-            }).catchError((e) {
-              print('signupErr: $e');
-            }));
+        // auth.createUserWithEmailAndPassword(email: email, password: pass).then(
+        // (currentUser) => firestore
+        //         .collection('users')
+        //         .document(currentUser.user.uid)
+        //         .setData({
+        //       'firstname': fname,
+        //       'lastname': lname,
+        //       'email': email,
+        //       'uid': currentUser.user.uid,
+        //       'type': 'user'
+        //     }).then((user) {
+        //       print('signup: success ${currentUser.user.uid} ok');
+        //       uploadImage(context);
+        //       Navigator.pushReplacementNamed(context, '/home/user');
+        //     }).catchError((e) {
+        //       print('signupErr: $e');
+        //     }));
+      } else {
+        print('password not match!!');
       }
     }
   }
@@ -352,13 +378,16 @@ class _FormRegisterState extends State<FormRegister> {
               },
             ),
             SizedBox(height: 20.0),
-            cusBtn(
-              action: () {
-                print(_imageFile);
-              },
-              color: Color(0XFF1367B8),
-              text: 'ลงทะเบียนtest',
-            ),
+            // ! #######################################
+            // ! Button debug
+            // cusBtn(
+            //   action: () {
+            //     print(_imageFile);
+            //   },
+            //   color: Color(0XFF1367B8),
+            //   text: 'ลงทะเบียนtest',
+            // ),
+            // ! #######################################
             SizedBox(height: 20.0),
             cusBtn(
               action: () {
@@ -367,6 +396,7 @@ class _FormRegisterState extends State<FormRegister> {
               color: Color(0XFF1367B8),
               text: 'ลงทะเบียน',
             ),
+            SizedBox(height: 20.0),
           ],
         ),
       ),
