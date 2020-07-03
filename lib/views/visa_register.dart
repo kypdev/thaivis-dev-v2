@@ -1,13 +1,14 @@
 import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:path/path.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:thaivis_dev_v2/common/cus_appbar.dart';
 import 'package:thaivis_dev_v2/common/cus_btn.dart';
 import 'package:thaivis_dev_v2/common/cus_tf.dart';
 import 'package:thaivis_dev_v2/services/update_image_profile.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:path/path.dart';
 
 
 class VisaRegister extends StatefulWidget {
@@ -48,7 +49,7 @@ class FormRegister extends StatefulWidget {
 }
 
 class _FormRegisterState extends State<FormRegister> {
-  
+
   TextEditingController visanameCtrl = new TextEditingController();
   TextEditingController addrNumCtrl = new TextEditingController();
   TextEditingController firstnameCtrl = new TextEditingController();
@@ -63,7 +64,6 @@ class _FormRegisterState extends State<FormRegister> {
   TextEditingController passCtrl = new TextEditingController();
   TextEditingController conpassCtrl = new TextEditingController();
 
-  
   Future<File> file;
   String status = '';
   String base64Image;
@@ -73,6 +73,8 @@ class _FormRegisterState extends State<FormRegister> {
   File _imageFile;
   UpdateImageProfile updateImageProfile = new UpdateImageProfile();
   FirebaseAuth auth = FirebaseAuth.instance;
+  final Firestore firestore = Firestore.instance;
+
 
   String emailValidator(String value) {
     Pattern pattern =
@@ -239,28 +241,28 @@ class _FormRegisterState extends State<FormRegister> {
               ));
   }
 
-  // Future uploadImage(BuildContext context) async {
-  //   String fileName = basename(_imageFile.path);
-  //   final StorageReference firebaseStorageRef = FirebaseStorage.instance
-  //       .ref()
-  //       .child('ีuserprofile/${fileName.toString()}');
-  //   StorageUploadTask task = firebaseStorageRef.putFile(_imageFile);
-  //   StorageTaskSnapshot snapshotTask = await task.onComplete;
-  //   String downloadUrl = await snapshotTask.ref.getDownloadURL();
+  Future uploadImage(BuildContext context) async {
+    String fileName = basename(_imageFile.path);
+    final StorageReference firebaseStorageRef = FirebaseStorage.instance
+        .ref()
+        .child('ีvisaprofile/${fileName.toString()}');
+    StorageUploadTask task = firebaseStorageRef.putFile(_imageFile);
+    StorageTaskSnapshot snapshotTask = await task.onComplete;
+    String downloadUrl = await snapshotTask.ref.getDownloadURL();
 
-  //   if (downloadUrl != null) {
-  //     updateImageProfile
-  //         .updateVisaPro(downloadUrl.toString(), context)
-  //         .then((val) {
-  //       print('update image profile success');
-  //       Navigator.pushReplacementNamed(context, '/home/user');
-  //     }).catchError((e) {
-  //       print('upload error ' + e);
-  //     });
-  //   }
-  // }
+    if (downloadUrl != null) {
+      updateImageProfile
+          .updateVisaPro(downloadUrl.toString(), context)
+          .then((val) {
+        print('update image profile success');
+        Navigator.pushReplacementNamed(context, '/home/user');
+      }).catchError((e) {
+        print('upload error ' + e);
+      });
+    }
+  }
 
-  void retister() {
+  void retister(BuildContext context) {
     if (_formKey.currentState.validate()) {
       String visaName = visanameCtrl.text.trim();
       String addrNo = addrNumCtrl.text.trim();
@@ -279,6 +281,29 @@ class _FormRegisterState extends State<FormRegister> {
         print('show alert pass not match');
       } else {
         print('start register');
+
+        auth.createUserWithEmailAndPassword(email: email, password: pass).then(
+          (currentUser) => firestore
+                  .collection('visa')
+                  .document(currentUser.user.uid)
+                  .setData({
+                'visaName': visaName,
+                'addrNo': addrNo,
+                'road': road,
+                'subDistrict': subDistrict,
+                'district': district,
+                'province': province,
+                'zipCode': zipCode,
+                'tel': tel,
+                'location': location,
+                'email': email,
+                'uid': currentUser.user.uid,
+                'type': 'visa'
+              }).then((user) {
+                print('signup success ${currentUser.user.uid}');
+                uploadImage(context);
+              // Navigator.pushReplacementNamed(context, '/home/visa');
+              }).catchError((e) => print('err: $e')));
 
         
       }
@@ -455,7 +480,7 @@ class _FormRegisterState extends State<FormRegister> {
             SizedBox(height: 20.0),
             cusBtn(
               action: () {
-                retister();
+                retister(context);
               },
               color: Color(0XFF1367B8),
               text: 'ลงทะเบียน',
@@ -467,4 +492,4 @@ class _FormRegisterState extends State<FormRegister> {
   }
 }
 
-class Firestore {}
+
