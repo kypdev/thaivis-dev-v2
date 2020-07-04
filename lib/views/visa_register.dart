@@ -252,10 +252,11 @@ class _FormRegisterState extends State<FormRegister> {
 
     if (downloadUrl != null) {
       updateImageProfile
-          .updateVisaPro(downloadUrl.toString(), context)
+          .updateImageVisaProfile(downloadUrl.toString(), context)
           .then((val) {
         print('update image profile success');
-        Navigator.pushReplacementNamed(context, '/home/user');
+        // Navigator.pushReplacementNamed(context, '/home');
+        
       }).catchError((e) {
         print('upload error ' + e);
       });
@@ -298,12 +299,21 @@ class _FormRegisterState extends State<FormRegister> {
                 'location': location,
                 'email': email,
                 'uid': currentUser.user.uid,
-                'type': 'visa'
-              }).then((user) {
-                print('signup success ${currentUser.user.uid}');
+                'role': 'visa'
+              }).whenComplete((){
+
+
                 uploadImage(context);
-              // Navigator.pushReplacementNamed(context, '/home/visa');
-              }).catchError((e) => print('err: $e')));
+                print('success');
+                Navigator.pushReplacementNamed(context, '/home/visa');
+
+
+
+
+              })
+              
+              
+              ).catchError((e)=>print('err: $e'));
 
         
       }

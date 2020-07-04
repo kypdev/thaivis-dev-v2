@@ -86,4 +86,40 @@ class UpdateImageProfile {
       });
     });
   }
+
+
+   updateImageVisaProfile(imgUrl, context) async {
+    var userInfo = UserUpdateInfo();
+
+    userInfo.photoUrl = imgUrl;
+    auth.currentUser().then((user){
+      user.updateProfile(userInfo);
+      firestore.collection('visa')
+      .where('uid', isEqualTo: user.uid)
+      .getDocuments()
+      .then((docs){
+        firestore.document('visa/${docs.documents[0].documentID}')
+        .updateData({
+          'imgpro': imgUrl
+        }).then((_){
+          debugPrint('update image profile success');
+        }).catchError((e){
+
+          debugPrint('update image profile err: $e');
+        });
+      });
+    });
+  }
+
+
+
+
+
+
+
+
+
+
+
+
 }

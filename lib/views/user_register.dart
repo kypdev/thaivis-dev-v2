@@ -287,7 +287,7 @@ class _FormRegisterState extends State<FormRegister> {
 
 
                 }).catchError((e) {
-                  print('signupErr: $e');
+                  print('err: $e');
                 }));
 
         // await uploadImage(context);
