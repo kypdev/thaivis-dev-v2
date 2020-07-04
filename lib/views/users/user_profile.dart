@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:thaivis_dev_v2/common/cus_btn.dart';
 import 'package:thaivis_dev_v2/services/auth.dart';
@@ -14,9 +15,36 @@ class UserProfile extends StatefulWidget {
 
 class _UserProfileState extends State<UserProfile> {
   Auth auth = new Auth();
+  String userID = '';
+
+  void debugButton() {
+    print('userid: $userID');
+  }
 
   void logout() {
     auth.signOut(context);
+  }
+
+  inputData() async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    final FirebaseUser user = await auth.currentUser();
+    final uid = user.uid.toString();
+    print(uid);
+    setState(() {
+      userID = uid.toString();
+    });
+  }
+
+  @override
+  void initState() {
+    inputData();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    
+    super.dispose();
   }
 
   @override
@@ -33,19 +61,35 @@ class _UserProfileState extends State<UserProfile> {
           ),
           centerTitle: true,
         ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            // Image.network(
-            //     ''),
-            cusBtn(
-              action: () => logout(),
-              color: Colors.red,
-              text: 'ออกจากระบบ',
-            ),
-          ],
+        body: Padding(
+          padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              
+              cusBtn(
+                action: ()=> debugButton(),
+                color: Colors.green,
+                text: 'debug',
+              ),
+
+              SizedBox(height: 20.0),
+
+
+
+
+              cusBtn(
+                action: () => logout(),
+                color: Colors.red,
+                text: 'ออกจากระบบ',
+              ),
+
+            ],
+          ),
         ),
       ),
     );
   }
+
+  
 }
