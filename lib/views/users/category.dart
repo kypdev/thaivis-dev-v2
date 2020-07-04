@@ -1,6 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:thaivis_dev_v2/views/users/cat_drink.dart';
+import 'package:thaivis_dev_v2/views/users/cat_food.dart';
+import 'package:thaivis_dev_v2/views/users/cat_nacklace.dart';
+import 'package:thaivis_dev_v2/views/users/cat_service.dart';
+import 'package:thaivis_dev_v2/views/users/cat_shirt.dart';
+import 'package:thaivis_dev_v2/views/users/cat_weave.dart';
 
 class Category extends StatelessWidget {
+
+  void foodMenu(BuildContext context) { 
+    Navigator.push(context, MaterialPageRoute(builder: (context) => CatFood()));
+  }
+
+  void drinkMenu(BuildContext context) { 
+    Navigator.push(context, MaterialPageRoute(builder: (context) => CatDrink()));
+  }
+
+  void shirtMenu(BuildContext context) { 
+    Navigator.push(context, MaterialPageRoute(builder: (context) => CatShirt()));
+  }
+
+  void necklaceMenu(BuildContext context) { 
+    Navigator.push(context, MaterialPageRoute(builder: (context) => CatNecklace()));
+  }
+
+  void weaveMenu(BuildContext context) { 
+    Navigator.push(context, MaterialPageRoute(builder: (context) => CatWeave()));
+  }
+
+  void serviceMenu(BuildContext context) { 
+    Navigator.push(context, MaterialPageRoute(builder: (context) => CatService()));
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -13,6 +44,7 @@ class Category extends StatelessWidget {
               InkWell(
                 onTap: () {
                   print('food');
+                  foodMenu(context);
                 },
                 child: itemCategory(
                   img: 'assets/images/user-cat/menu1.png',
@@ -23,6 +55,7 @@ class Category extends StatelessWidget {
               InkWell(
                 onTap: () {
                   print('drink');
+                  drinkMenu(context);
                 },
                 child: itemCategory(
                   img: 'assets/images/user-cat/menu2.png',
@@ -38,6 +71,7 @@ class Category extends StatelessWidget {
               InkWell(
                 onTap: () {
                   print('shirt');
+                  shirtMenu(context);
                 },
                 child: itemCategory(
                   img: 'assets/images/user-cat/menu3.png',
@@ -48,10 +82,11 @@ class Category extends StatelessWidget {
               InkWell(
                 onTap: () {
                   print('necklace');
+                  necklaceMenu(context);
                 },
                 child: itemCategory(
                   img: 'assets/images/user-cat/menu4.png',
-                  label: 'ขอบประดับ',
+                  label: 'เครื่องประดับ',
                 ),
               ),
             ],
@@ -63,6 +98,7 @@ class Category extends StatelessWidget {
               InkWell(
                 onTap: () {
                   print('weave');
+                  weaveMenu(context);
                 },
                 child: itemCategory(
                   img: 'assets/images/user-cat/menu5.png',
@@ -73,6 +109,7 @@ class Category extends StatelessWidget {
               InkWell(
                 onTap: () {
                   print('service');
+                  serviceMenu(context);
                 },
                 child: itemCategory(
                   img: 'assets/images/user-cat/menu6.png',
