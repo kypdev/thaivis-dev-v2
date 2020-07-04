@@ -282,7 +282,7 @@ class _FormRegisterState extends State<FormRegister> {
                   
                   uploadImage(context);
                   print('signupsuccess');
-                  // Navigator.pushReplacementNamed(context, '/home');
+                  Navigator.pushReplacementNamed(context, '/home/user');
 
 
 
