@@ -113,14 +113,14 @@ class Auth {
     // print('login: $email, $pass, $loginType');
 
     if (loginType == 1) {
+      print('loginType: $loginType Visa');
       // auth.signInWithEmailAndPassword(email: email, password: pass).then((_) {
       //   Navigator.pushReplacementNamed(context, '/home/visa');
       // }).catchError((e) {
       //   debugPrint('loginErr: $e');
       // });
-      print('loginType: $loginType');
-    } else {
-      print('loginType: $loginType');
+    } else if(loginType ==2) {
+      print('loginType: $loginType User');
       
       // auth.signInWithEmailAndPassword(email: email, password: pass)
 
