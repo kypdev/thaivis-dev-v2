@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-=======
-import 'dart:io';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
->>>>>>> parent of 8264167... register failed
 import 'package:flutter/material.dart';
 import 'package:thaivis_dev_v2/common/cus_btn.dart';
 import 'package:thaivis_dev_v2/common/cus_tf.dart';
