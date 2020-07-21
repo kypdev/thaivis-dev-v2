@@ -50,6 +50,7 @@ class FormRegister extends StatefulWidget {
 
 class _FormRegisterState extends State<FormRegister> {
 
+  TextEditingController visaNoCtrl = new TextEditingController();
   TextEditingController visanameCtrl = new TextEditingController();
   TextEditingController addrNumCtrl = new TextEditingController();
   TextEditingController firstnameCtrl = new TextEditingController();
@@ -265,6 +266,7 @@ class _FormRegisterState extends State<FormRegister> {
 
   void retister(BuildContext context) {
     if (_formKey.currentState.validate()) {
+      String visaNo = visanameCtrl.text.trim();
       String visaName = visanameCtrl.text.trim();
       String addrNo = addrNumCtrl.text.trim();
       String road = roadCtrl.text.trim();
@@ -288,6 +290,7 @@ class _FormRegisterState extends State<FormRegister> {
                   .collection('visa')
                   .document(currentUser.user.uid)
                   .setData({
+                'visaNo': visaNo,
                 'visaName': visaName,
                 'addrNo': addrNo,
                 'road': road,
@@ -332,6 +335,19 @@ class _FormRegisterState extends State<FormRegister> {
           children: <Widget>[
             showImage(context),
             SizedBox(height: 16.0),
+
+            customTextField(
+              secureText: false,
+              controller: visaNoCtrl,
+              label: 'เลขวิสาหกิจชุมชน*',
+              prefixIcon: Icon(Icons.person),
+              fillColor: Color(0XFFF0F4F8),
+              val: (value) {
+                if (value.isEmpty || value.length < 5)
+                  return 'ชื่อวิสหากิจห้ามว่างหรือต่ำกว่า 5 ตัวอักษร';
+                return null;
+              },
+            ),
             customTextField(
               secureText: false,
               controller: visanameCtrl,
