@@ -63,56 +63,10 @@ class _LoginFormState extends State<LoginForm> {
 
   int loginType = 1;
 
-<<<<<<< HEAD
   login() {
     String email = emailCtrl.text.trim();
     String pass = passwordCtrl.text;
     _auth.signWighEmail(context, email, pass, loginType);
-=======
-   login() async {
-    if (_formKey.currentState.validate()) {
-      if (loginType == 2) {
-        // print('val ok');
-        // ! ######## user login ##########
-        String email = emailCtrl.text.trim();
-        String pass = passwordCtrl.text;
-        // print('$email // $pass');
-
-        auth
-            .signInWithEmailAndPassword(email: email, password: pass).catchError((e)=>print('loginerr: $e'))
-            .then((currentUser) {
-              print('userlogin: ${currentUser.user.uid}');
-
-              firestore.collection('users')
-                .where('uid', isEqualTo: currentUser.user.uid)
-                .getDocuments()
-                .then((docs){
-                  print('docs: ${docs.documents[0].data['role']}');
-                  if(docs.documents[0].data['role'] == 'user'){
-                    print('go to user screen');
-                    Navigator.pushReplacementNamed(context, '/home/user');
-                  }else{
-                    print('alert cannot login');
-
-                  }
-                });
-
-        });
-
-        // auth.signInWithEmailAndPassword(email: email, password: pass)
-        //   .then((AuthResult authResult){
-        //     print('authResult: ${authResult.user.uid}');
-        //   }).catchError((e){
-
-        //     print('error: ${e}');
-        //     // switch (e.hashCode)
-        //   });
-
-        // ! ######## user login ##########
-      } else if (loginType == 1) {}
-    }
-    // _auth.signWighEmail(context, email, pass, loginType);
->>>>>>> parent of 8270133... visa login ok
   }
 
   register() {
