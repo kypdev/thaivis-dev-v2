@@ -1,7 +1,3 @@
-import 'dart:io';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:thaivis_dev_v2/common/cus_btn.dart';
 import 'package:thaivis_dev_v2/common/cus_tf.dart';
@@ -53,10 +49,6 @@ class LoginForm extends StatefulWidget {
 class _LoginFormState extends State<LoginForm> {
   TextEditingController emailCtrl = new TextEditingController();
   TextEditingController passwordCtrl = new TextEditingController();
-  final _formKey = GlobalKey<FormState>();
-  FirebaseAuth auth = FirebaseAuth.instance;
-  Firestore firestore = Firestore.instance;
-  FirebaseUser user;
 
   String emailVal(String value) {
     Pattern pattern =
@@ -71,49 +63,10 @@ class _LoginFormState extends State<LoginForm> {
 
   int loginType = 1;
 
-   login() async {
-    if (_formKey.currentState.validate()) {
-      if (loginType == 2) {
-        // print('val ok');
-        // ! ######## user login ##########
-        String email = emailCtrl.text.trim();
-        String pass = passwordCtrl.text;
-        // print('$email // $pass');
-
-        auth
-            .signInWithEmailAndPassword(email: email, password: pass).catchError((e)=>print('loginerr: $e'))
-            .then((currentUser) {
-              print('userlogin: ${currentUser.user.uid}');
-
-              firestore.collection('users')
-                .where('uid', isEqualTo: currentUser.user.uid)
-                .getDocuments()
-                .then((docs){
-                  print('docs: ${docs.documents[0].data['role']}');
-                  if(docs.documents[0].data['role'] == 'user'){
-                    print('go to user screen');
-                    Navigator.pushReplacementNamed(context, '/home/user');
-                  }else{
-                    print('alert cannot login');
-
-                  }
-                });
-
-        });
-
-        // auth.signInWithEmailAndPassword(email: email, password: pass)
-        //   .then((AuthResult authResult){
-        //     print('authResult: ${authResult.user.uid}');
-        //   }).catchError((e){
-
-        //     print('error: ${e}');
-        //     // switch (e.hashCode)
-        //   });
-
-        // ! ######## user login ##########
-      } else if (loginType == 1) {}
-    }
-    // _auth.signWighEmail(context, email, pass, loginType);
+  login() {
+    String email = emailCtrl.text.trim();
+    String pass = passwordCtrl.text;
+    _auth.signWighEmail(context, email, pass, loginType);
   }
 
   register() {
@@ -132,7 +85,6 @@ class _LoginFormState extends State<LoginForm> {
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: _formKey,
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 32.0),
         child: Column(
@@ -152,12 +104,7 @@ class _LoginFormState extends State<LoginForm> {
               controller: passwordCtrl,
               prefixIcon: Icon(Icons.lock),
               label: 'รหัสผ่าน',
-              val: (value) {
-                if (value.isEmpty || value.length < 6) {
-                  return 'รหัสผ่านห้ามว่างหรือต่ำกว่า 6 ตัวอักษร';
-                }
-                return null;
-              },
+              val: emailVal,
             ),
             SizedBox(height: 35),
             cusBtn(

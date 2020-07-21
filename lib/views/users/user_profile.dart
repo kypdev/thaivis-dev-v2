@@ -68,69 +68,83 @@ class _UserProfileState extends State<UserProfile> {
                 onPressed: debugButton),
           ],
         ),
-        body: StreamBuilder(
-          stream: Firestore.instance
-              .collection('users')
-              .document(userID)
-              .snapshots(),
-          builder: (context, sn) {
-            if (!sn.hasData) {
-              return Text('Loading data Please wait...');
-            }
+//         body: StreamBuilder(
+//           stream: Firestore.instance
+//               .collection('users')
+//               .document(userID)
+//               .snapshots(),
+//           builder: (context, sn) {
+//             if (!sn.hasData) {
+//               return Text('Loading data Please wait...');
+//             }
 
-            return Center(
-              child: Padding(
-                padding: const EdgeInsets.only(left: 20, right: 20),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    CircleAvatar(
-                      backgroundColor: Colors.blue,
-                      radius: 75.0,
-                      child: CircleAvatar(
-                        radius: 70.0,
-                        backgroundColor: Color(0XFFFFFFFF),
-                        backgroundImage: NetworkImage(sn.data['imgpro']),
-                      ),
-                    ),
-                    SizedBox(height: 20.0),
-                    // Text(sn.data['firstname']),
-                    // Text(sn.data['lastname']),
-                    // Text(sn.data['email']),
+//             return Center(
+//               child: Padding(
+//                 padding: const EdgeInsets.only(left: 20, right: 20),
+//                 child: Column(
+//                   mainAxisAlignment: MainAxisAlignment.center,
+//                   children: <Widget>[
+//                     CircleAvatar(
+//                       backgroundColor: Colors.blue,
+//                       radius: 75.0,
+//                       child: CircleAvatar(
+//                         radius: 70.0,
+//                         backgroundColor: Color(0XFFFFFFFF),
+//                         backgroundImage: NetworkImage(sn.data['imgpro']),
+//                       ),
+//                     ),
+//                     SizedBox(height: 20.0),
+//                     // Text(sn.data['firstname']),
+//                     // Text(sn.data['lastname']),
+//                     // Text(sn.data['email']),
 
-                    _form(
-                      title: 'ชื่อ',
-                      content: sn.data['firstname']
-                    ),
+//                     _form(
+//                       title: 'ชื่อ',
+//                       content: sn.data['firstname']
+//                     ),
 
-                    _form(
-                      title: 'นามสกุล',
-                      content: sn.data['lastname']
-                    ),
+//                     _form(
+//                       title: 'นามสกุล',
+//                       content: sn.data['lastname']
+//                     ),
 
-                    _form(
-                      title: 'อีเมล',
-                      content: sn.data['email']
-                    ),
-
-
+//                     _form(
+//                       title: 'อีเมล',
+//                       content: sn.data['email']
+//                     ),
 
 
 
 
-                    SizedBox(height: 20.0),
-                    cusBtn(
-                      action: () => logout(),
-                      color: Colors.red,
-                      text: 'ออกจากระบบ',
-                    ),
-                  ],
-                ),
-              ),
-            );
-          },
-        ),
+
+
+//                     SizedBox(height: 20.0),
+//                     cusBtn(
+//                       action: () => logout(),
+//                       color: Colors.red,
+//                       text: 'ออกจากระบบ',
+//                     ),
+//                   ],
+//                 ),
+//               ),
+//             );
+//           },
+// =======
+//         body: Column(
+//           mainAxisAlignment: MainAxisAlignment.center,
+//           children: <Widget>[
+//             // Image.network(
+//             //     ''),
+//             cusBtn(
+//               action: () => logout(),
+//               color: Colors.red,
+//               text: 'ออกจากระบบ',
+//             ),
+//           ],
+// >>>>>>> parent of 82d07df... user login
+//         ),
       ),
+    
     );
   }
 }
