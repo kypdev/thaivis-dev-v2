@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:thaivis_dev_v2/views/users/price_detail.dart';
 
 class NewPrice extends StatelessWidget {
   @override
@@ -7,11 +8,16 @@ class NewPrice extends StatelessWidget {
       body: SingleChildScrollView(
                 child: Column(
           children: <Widget>[
-            cardItem(
-              image: 'https://image.makewebeasy.net/makeweb/0/aNSsujWTa/chilli/Picture59.png',
-              price: '112',
-              proName: 'Ovaltine',
-              rating: '4'
+            GestureDetector(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context) => PriceDetail()));
+              },
+                          child: cardItem(
+                image: 'https://image.makewebeasy.net/makeweb/0/aNSsujWTa/chilli/Picture59.png',
+                price: '112',
+                proName: 'Ovaltine',
+                rating: '4'
+              ),
             ),
             cardItem(
               image: 'https://image.makewebeasy.net/makeweb/0/aNSsujWTa/chilli/Picture59.png',
