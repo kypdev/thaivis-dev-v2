@@ -222,26 +222,31 @@ class _FormAddProductState extends State<FormAddProduct> {
         child: Column(
           children: <Widget>[
             customTextField(
+              secureText: false,
                 controller: proNameCtrl,
                 fillColor: Color(0XFFFFFFFF),
                 label: 'ประเภทผลิตภัณฑ์*',
                 val: (value) {}),
             customTextField(
+              secureText: false,
                 controller: proNameCtrl,
                 fillColor: Color(0XFFFFFFFF),
                 label: 'ชื่อผลิตภัณฑ์*',
                 val: (value) {}),
             customTextField(
+              secureText: false,
                 controller: proPriceCtrl,
                 fillColor: Color(0XFFFFFFFF),
                 label: 'ราคา*(10 บาท/ตัว, 150 บาท/1 โหล, ...)',
                 val: (value) {}),
             customTextField(
+              secureText: false,
                 controller: proSizeCtrl,
                 fillColor: Color(0XFFFFFFFF),
                 label: 'ขนาด',
                 val: (value) {}),
             customTextField(
+              secureText: false,
                 controller: proWeightCtrl,
                 fillColor: Color(0XFFFFFFFF),
                 label: 'น้ำหนัก',

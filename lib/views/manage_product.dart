@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:thaivis_dev_v2/common/cus_appbar.dart';
-import 'package:thaivis_dev_v2/services/visa.dart';
+import 'package:thaivis_dev_v2/views/add_product%202.dart';
+import 'package:thaivis_dev_v2/views/edit_product.dart';
 
 class ManageProduct extends StatefulWidget {
   @override
@@ -8,7 +9,17 @@ class ManageProduct extends StatefulWidget {
 }
 
 class _ManageProductState extends State<ManageProduct> {
-  Visa _visa = new Visa();
+
+  addProduct() {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => AddProduct2()));
+  }
+
+  editProduct() {
+    print('edit product');
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => EditProduct()));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +31,7 @@ class _ManageProductState extends State<ManageProduct> {
           title: 'จัดการข้อมูลผลิตภัณฑ์',
         ),
         floatingActionButton: FloatingActionButton.extended(
-          onPressed: () => _visa.goAddProduct(context),
+          onPressed: addProduct,
           backgroundColor: Color(0XFF1367B8),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(30.0),
@@ -42,26 +53,42 @@ class _ManageProductState extends State<ManageProduct> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: cardItem(
-                          image: 'assets/images/shirt.png',
-                          price: '900',
-                          proName: 'เสื้อทีมแมนยู',
-                          rating: '5.1',
-                        ),
-                      ),
-                      Expanded(
-                        child: cardItem(
-                          image: 'assets/images/olo.jpg',
-                          price: '250',
-                          proName: 'เสื้อทีมแมนยู',
-                          rating: '2.1',
-                        ),
-                      ),
-                    ],
+                  InkWell(
+                    onLongPress: () {
+                      editProduct();
+                    },
+                    child: cardItem(
+                      image: 'assets/images/shirt.png',
+                      price: '900',
+                      proName: 'เสื้อทีมแมนยู',
+                      rating: '5.1',
+                    ),
                   ),
+                  // Row(
+                  //   children: <Widget>[
+                  //     Expanded(
+                  //       child: cardItem(
+                  //         image: 'assets/images/shirt.png',
+                  //         price: '900',
+                  //         proName: 'เสื้อทีมแมนยู',
+                  //         rating: '5.1',
+                  //       ),
+                  //     ),
+                  //     Expanded(
+                  //       child: InkWell(
+                  //         onLongPress: (){
+                  //           print('edit product');
+                  //         },
+                  //                                 child: cardItem(
+                  //           image: 'assets/images/olo.jpg',
+                  //           price: '250',
+                  //           proName: 'เสื้อทีมแมนยู',
+                  //           rating: '2.1',
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
                 ],
               ),
             ),

@@ -7,10 +7,8 @@ import 'package:thaivis_dev_v2/common/cus_appbar.dart';
 import 'package:thaivis_dev_v2/common/cus_btn.dart';
 import 'dart:io';
 import 'package:thaivis_dev_v2/common/cus_tf.dart';
-import 'package:thaivis_dev_v2/services/auth.dart';
 import 'package:path/path.dart';
 import 'package:thaivis_dev_v2/services/update_image_profile.dart';
-import 'package:thaivis_dev_v2/views/user_bottom_nav_bar.dart';
 
 class UserRegister extends StatefulWidget {
   @override
@@ -60,7 +58,6 @@ class _FormRegisterState extends State<FormRegister> {
   TextEditingController emailCtrl = new TextEditingController();
   TextEditingController passCtrl = new TextEditingController();
   TextEditingController conpassCtrl = new TextEditingController();
-  Auth _auth = new Auth();
   UpdateImageProfile updateImageProfile = new UpdateImageProfile();
   FirebaseAuth auth = FirebaseAuth.instance;
   Firestore firestore = Firestore.instance;

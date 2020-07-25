@@ -1,14 +1,11 @@
-import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:thaivis_dev_v2/common/cus_btn.dart';
 import 'package:thaivis_dev_v2/common/cus_tf.dart';
-import 'package:thaivis_dev_v2/services/auth.dart';
 
 final Color scaffColor = Color(0xfff0f4f8);
-final Auth _auth = new Auth();
 
 class LoginScreen extends StatefulWidget {
   @override
