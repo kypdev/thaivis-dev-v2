@@ -1,32 +1,83 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:thaivis_dev_v2/views/users/price_detail.dart';
 
-class NewPrice extends StatelessWidget {
+class NewPrice extends StatefulWidget {
+  @override
+  _NewPriceState createState() => _NewPriceState();
+}
+
+class _NewPriceState extends State<NewPrice> {
   showPriceDetail(context) {
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => PriceDetail()));
   }
 
+  String uid;
+
+  userId() async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    final FirebaseUser user = await auth.currentUser();
+    final uuid = user.uid.toString();
+    print(uuid);
+    setState(() {
+      uid = uuid;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    userId();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SingleChildScrollView(
-      child: Column(
-        children: <Widget>[
-          InkWell(
-            onTap: () {
-              showPriceDetail(context);
-            },
-            child: cardItem(
-                image:
-                    'https://image.makewebeasy.net/makeweb/0/aNSsujWTa/chilli/Picture59.png',
-                price: '112',
-                proName: 'Ovaltine',
-                rating: '4'),
-          ),
-        ],
-      ),
-    ));
+      body: StreamBuilder<QuerySnapshot>(
+          stream: Firestore.instance
+              .collection('products')
+              .snapshots(),
+          builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (snapshot.hasError) {
+              return Text(snapshot.error);
+            } else {
+              switch (snapshot.connectionState) {
+                case ConnectionState.waiting:
+                  return Text('load');
+                case ConnectionState.active:
+                  return ListView(
+                    children:
+                        snapshot.data.documents.map((DocumentSnapshot docs) {
+                      return cardItem(
+                        image: docs['img'],
+                        proName: docs['name'],
+                        price: docs['price'],
+                      );
+                    }).toList(),
+                  );
+                case ConnectionState.done:
+                  return Text('done');
+                case ConnectionState.none:
+                  return Text('none');
+              }
+            }
+            return Container(
+              height: MediaQuery.of(context).size.height,
+              child: ListView(
+                children: snapshot.data.documents.map((DocumentSnapshot docs) {
+                  return cardItem(
+                    image: docs['img'],
+                    proName: docs['name'],
+                    price: docs['price'],
+                  );
+                }).toList(),
+              ),
+            );
+          },
+        ),
+    );
   }
 }
 
@@ -34,7 +85,7 @@ Widget cardItem({
   String image,
   String proName,
   String price,
-  String rating,
+  // String rating,
 }) {
   return Padding(
     padding: const EdgeInsets.only(left: 30.0, right: 30.0, bottom: 16.0),
@@ -44,11 +95,19 @@ Widget cardItem({
       child: Column(
         children: <Widget>[
           Padding(
-            padding: EdgeInsets.only(top: 30.0, bottom: 15.0),
-            child: Image.network(
-              image,
-              width: 150.0,
-            ),
+            padding: EdgeInsets.only(top: 30.0, bottom: 15.0, left: 20.0, right: 20.0),
+            child: Container(
+                  height: 200.0,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(40.0),
+                    topRight: Radius.circular(40.0),
+                    bottomLeft: Radius.circular(40.0),
+                    bottomRight: Radius.circular(40.0),
+                  ),
+                    image: DecorationImage(image: NetworkImage(image), fit: BoxFit.cover),
+                  ),
+                ),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),

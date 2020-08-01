@@ -1,7 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:thaivis_dev_v2/common/product_item.dart';
 
-var visaImg =
-    'https://images.unsplash.com/photo-1579349443343-73da56a71a20?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=80';
 
 class CatShirt extends StatefulWidget {
   @override
@@ -9,6 +10,23 @@ class CatShirt extends StatefulWidget {
 }
 
 class _CatShirtState extends State<CatShirt> {
+  String uid;
+
+  userId() async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    final FirebaseUser user = await auth.currentUser();
+    final uuid = user.uid.toString();
+    print(uuid);
+    setState(() {
+      uid = uuid;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    userId();
+  }
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -24,14 +42,49 @@ class _CatShirtState extends State<CatShirt> {
             ),
             centerTitle: true,
           ),
-          body: Padding(
-            padding: const EdgeInsets.only(left: 20.0, right: 20.0),
-            child: Column(
-              children: <Widget>[
-                itemVisa(img: visaImg, label: 'วิสาหกิจ กทม.', addr: 'กทม หนองแขม'),
-              ],
-            ),
-          )),
+          body: StreamBuilder<QuerySnapshot>(
+          stream: Firestore.instance
+              .collection('products')
+              .where('cat', isEqualTo: '3')
+              .snapshots(),
+          builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (snapshot.hasError) {
+              return Text(snapshot.error);
+            } else {
+              switch (snapshot.connectionState) {
+                case ConnectionState.waiting:
+                  return Text('load');
+                case ConnectionState.active:
+                  return ListView(
+                    children:
+                        snapshot.data.documents.map((DocumentSnapshot docs) {
+                      return ProductItem(
+                        image: docs['img'],
+                        proName: docs['name'],
+                        price: docs['price'],
+                      );
+                    }).toList(),
+                  );
+                case ConnectionState.done:
+                  return Text('done');
+                case ConnectionState.none:
+                  return Text('none');
+              }
+            }
+            return Container(
+              height: MediaQuery.of(context).size.height,
+              child: ListView(
+                children: snapshot.data.documents.map((DocumentSnapshot docs) {
+                  return ProductItem(
+                    image: docs['img'],
+                    proName: docs['name'],
+                    price: docs['price'],
+                  );
+                }).toList(),
+              ),
+            );
+          },
+        ),),
     );
   }
 }

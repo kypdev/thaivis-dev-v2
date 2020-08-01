@@ -141,6 +141,8 @@ class _AddProduct2State extends State<AddProduct2> {
     print('get img url success');
   }
 
+  
+
   addProduct() async {
     if (_formKey.currentState.validate()) {
       user = await auth.currentUser();
@@ -153,167 +155,28 @@ class _AddProduct2State extends State<AddProduct2> {
       String proAddr = proAddrCtrl.text;
 
       print('addpro: $proName, $proDetail, $proPrice, $proCat, $proAddr');
+      setState(() {
+        loading = true;
+      });
+
+      await uploadImage();
+      print('imgurl: $_uploadedFileURL');
+
+      firestore.collection('products').add({
+        'name': proName,
+        'detail': proDetail,
+        'price': proPrice,
+        'cat': proCat,
+        'addr': proAddr,
+        'visaid': uid,
+        'img': _uploadedFileURL
+      });
 
       setState(() {
-          loading = true;
-        });
+        loading = false;
+      });
 
-        await uploadImage();
-        print('imgurl: $_uploadedFileURL');
-
-        firestore.collection('products').add({
-          'name': proName,
-          'detail': proDetail,
-          'price': proPrice,
-          'cat': proCat,
-          'addr': proAddr,
-          'visaid': uid,
-          'img': _uploadedFileURL
-        });
-
-        setState(() {
-          loading = false;
-        });
-
-      // if (proCat == '1') {
-      //   print('chkcat: 1');
-
-      //   setState(() {
-      //     loading = true;
-      //   });
-
-      //   await uploadImage();
-      //   print('imgurl: $_uploadedFileURL');
-
-      //   firestore.collection('foods').add({
-      //     'name': proName,
-      //     'detail': proDetail,
-      //     'price': proPrice,
-      //     'cat': proCat,
-      //     'addr': proAddr,
-      //     'visaid': uid,
-      //     'img': _uploadedFileURL
-      //   });
-
-      //   setState(() {
-      //     loading = false;
-      //   });
-
-
-      // }else if(proCat == '2'){
-
-
-      //    setState(() {
-      //     loading = true;
-      //   });
-
-      //   await uploadImage();
-      //   print('imgurl: $_uploadedFileURL');
-
-      //   firestore.collection('drinks').add({
-      //     'name': proName,
-      //     'detail': proDetail,
-      //     'price': proPrice,
-      //     'cat': proCat,
-      //     'addr': proAddr,
-      //     'visaid': uid,
-      //     'img': _uploadedFileURL
-      //   });
-
-      //   setState(() {
-      //     loading = false;
-      //   });
-
-      // }else if(proCat == '3'){
-
-      //   setState(() {
-      //     loading = true;
-      //   });
-
-      //   await uploadImage();
-      //   print('imgurl: $_uploadedFileURL');
-
-      //   firestore.collection('costumes').add({
-      //     'name': proName,
-      //     'detail': proDetail,
-      //     'price': proPrice,
-      //     'cat': proCat,
-      //     'addr': proAddr,
-      //     'visaid': uid,
-      //     'img': _uploadedFileURL
-      //   });
-
-      //   setState(() {
-      //     loading = false;
-      //   });
-
-      // }else if(proCat == '4'){
-
-      //   setState(() {
-      //     loading = true;
-      //   });
-
-      //   await uploadImage();
-      //   print('imgurl: $_uploadedFileURL');
-
-      //   firestore.collection('accessories').add({
-      //     'name': proName,
-      //     'detail': proDetail,
-      //     'price': proPrice,
-      //     'cat': proCat,
-      //     'addr': proAddr,
-      //     'visaid': uid,
-      //     'img': _uploadedFileURL
-      //   });
-
-      //   setState(() {
-      //     loading = false;
-      //   });
-
-      // }else if(proCat == '5'){
-      //   setState(() {
-      //     loading = true;
-      //   });
-
-      //   await uploadImage();
-      //   print('imgurl: $_uploadedFileURL');
-
-      //   firestore.collection('wickers').add({
-      //     'name': proName,
-      //     'detail': proDetail,
-      //     'price': proPrice,
-      //     'cat': proCat,
-      //     'addr': proAddr,
-      //     'visaid': uid,
-      //     'img': _uploadedFileURL
-      //   });
-
-      //   setState(() {
-      //     loading = false;
-      //   });
-      // }else{
-      //   setState(() {
-      //     loading = true;
-      //   });
-
-      //   await uploadImage();
-      //   print('imgurl: $_uploadedFileURL');
-
-      //   firestore.collection('services').add({
-      //     'name': proName,
-      //     'detail': proDetail,
-      //     'price': proPrice,
-      //     'cat': proCat,
-      //     'addr': proAddr,
-      //     'visaid': uid,
-      //     'img': _uploadedFileURL
-      //   });
-
-      //   setState(() {
-      //     loading = false;
-      //   });
-
-      // }
+      
     }
   }
 
@@ -391,7 +254,8 @@ class _AddProduct2State extends State<AddProduct2> {
                             fillColor: Color(0XFFFFFFFF),
                             label: 'หมวดหมู่*',
                             val: (value) {
-                              if (value.isEmpty) return 'หมวดหมู่สินค้าห้ามว่าง!!!';
+                              if (value.isEmpty)
+                                return 'หมวดหมู่สินค้าห้ามว่าง!!!';
                               return null;
                             }),
                         customTextField(
@@ -400,7 +264,8 @@ class _AddProduct2State extends State<AddProduct2> {
                             fillColor: Color(0XFFFFFFFF),
                             label: 'ที่อยู่*',
                             val: (value) {
-                              if (value.isEmpty) return 'ที่อยู่สินค้าห้ามว่าง!!!';
+                              if (value.isEmpty)
+                                return 'ที่อยู่สินค้าห้ามว่าง!!!';
                               return null;
                             }),
                         SizedBox(height: 25.0),
@@ -418,9 +283,7 @@ class _AddProduct2State extends State<AddProduct2> {
                 ),
               ),
             ),
-            Visibility(
-                      visible: loading,
-                      child: CircularProgressIndicator())
+            Visibility(visible: loading, child: CircularProgressIndicator())
           ],
         ),
       ),
