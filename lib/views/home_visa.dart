@@ -107,7 +107,7 @@ class _HomeVisaState extends State<HomeVisa> {
                           radius: 70.0,
                           backgroundColor: Color(0XFFFFFFFF),
                           // backgroundImage: NetworkImage(sn.data['imgpro']),
-                          backgroundImage: NetworkImage('https://cdn.icon-icons.com/icons2/1879/PNG/512/iconfinder-3-avatar-2754579_120516.png'),
+                          backgroundImage: NetworkImage(sn.data['imgpro']),
                         ),
                       ),
                       SizedBox(height: 20.0),
