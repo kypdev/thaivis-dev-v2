@@ -45,7 +45,7 @@ class _HomeVisaState extends State<HomeVisa> {
     );
   }
 
-  inputData() async {
+  Future inputData() async {
     FirebaseAuth auth = FirebaseAuth.instance;
     final FirebaseUser user = await auth.currentUser();
     final uid = user.uid.toString();
@@ -122,7 +122,7 @@ class _HomeVisaState extends State<HomeVisa> {
                       cardMenu(
                         image: 'assets/images/visa/menu1.png',
                         text: 'จัดการข้อมูลวิสาหกิจชุมชน',
-                        action: () {},
+                        action: () => _visa.goVisaProfile(context),
                       ),
                       cardMenu(
                         image: 'assets/images/visa/menu2.png',

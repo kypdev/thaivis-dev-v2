@@ -4,6 +4,7 @@ import 'package:thaivis_dev_v2/views/home_visa.dart';
 import 'package:thaivis_dev_v2/views/login_screen.dart';
 import 'package:thaivis_dev_v2/views/manage_product.dart';
 import 'package:thaivis_dev_v2/views/user_bottom_nav_bar.dart';
+import 'package:thaivis_dev_v2/views/visa_profile.dart';
 import 'package:thaivis_dev_v2/views/visa_register.dart';
 import 'views/splash_screen.dart';
 import 'views/user_register.dart';
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
         '/home/user': (context) => UserBottomNavHome(),
         '/visa/manage': (context) => ManageProduct(),
         '/visa/addPro': (context) => AddProduct(),
+        '/visa/profile': (context) => VisaProfile(),
       },
     );
   }

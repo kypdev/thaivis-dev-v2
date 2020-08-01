@@ -1,9 +1,11 @@
 import 'dart:io';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:thaivis_dev_v2/common/cus_appbar.dart';
 import 'package:thaivis_dev_v2/common/cus_btn.dart';
 import 'package:thaivis_dev_v2/common/cus_tf.dart';
+import 'package:path/path.dart' as Path;
 
 class AddProduct2 extends StatefulWidget {
   @override
@@ -11,6 +13,117 @@ class AddProduct2 extends StatefulWidget {
 }
 
 class _AddProduct2State extends State<AddProduct2> {
+  Future<File> file;
+  File tmpFile;
+  String _uploadedFileURL;
+
+  Widget showImage() {
+    return FutureBuilder<File>(
+      future: file,
+      builder: (BuildContext context, AsyncSnapshot<File> snapshot) {
+        if (snapshot.connectionState == ConnectionState.done &&
+            null != snapshot.data) {
+          tmpFile = snapshot.data;
+          // base64Image = base64Encode(snapshot.data.readAsBytesSync());
+          return Padding(
+            padding:
+                const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height * 0.4,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                image: DecorationImage(
+                  image: FileImage(
+                    snapshot.data,
+                  ),
+                  fit: BoxFit.fill,
+                ),
+              ),
+            ),
+          );
+        } else if (null != snapshot.error) {
+          return const Text(
+            'Error Picking Image',
+            textAlign: TextAlign.center,
+          );
+        } else {
+          return Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height * 0.4,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/exit.png'),
+                fit: BoxFit.contain,
+              ),
+            ),
+          );
+        }
+      },
+    );
+  }
+
+  chooseImage() {
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext bc) {
+          return Container(
+            child: new Wrap(
+              children: <Widget>[
+                new ListTile(
+                  leading: new Icon(Icons.camera_alt),
+                  title: new Text(
+                    'กล้อง',
+                  ),
+                  onTap: () {
+                    setState(() {
+                      file = ImagePicker.pickImage(source: ImageSource.camera);
+                    });
+                    Navigator.pop(context);
+                  },
+                ),
+                new ListTile(
+                  leading: new Icon(Icons.photo_library),
+                  title: new Text(
+                    'คลังรูปภาพ',
+                  ),
+                  onTap: () {
+                    setState(() {
+                      file = ImagePicker.pickImage(source: ImageSource.gallery);
+                      Navigator.pop(context);
+                    });
+                  },
+                ),
+              ],
+            ),
+          );
+        });
+  }
+
+  uploadFile() async {
+    StorageReference storageReference = FirebaseStorage.instance
+        .ref()
+        .child('products/${Path.basename(tmpFile.path)}}');
+
+    StorageUploadTask uploadTask = storageReference.putFile(tmpFile);
+    StorageTaskSnapshot snapshotTask = await uploadTask.onComplete;
+    String downloadUrl = await snapshotTask.ref.getDownloadURL();
+    print('img: $downloadUrl');
+
+
+    
+  }
+
+  addProduct() async {
+    await uploadFile();
+    print(_uploadedFileURL);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -25,7 +138,21 @@ class _AddProduct2State extends State<AddProduct2> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                FormAddProduct(),
+                showImage(),
+                RaisedButton(
+                  child: Text('Choose File'),
+                  onPressed: () {
+                    chooseImage();
+                  },
+                  color: Colors.red,
+                ),
+                RaisedButton(
+                  child: Text('upload file'),
+                  onPressed: () {
+                    addProduct();
+                  },
+                  color: Colors.red,
+                ),
               ],
             ),
           ),
@@ -42,9 +169,10 @@ class FormAddProduct extends StatefulWidget {
 
 class _FormAddProductState extends State<FormAddProduct> {
   TextEditingController proNameCtrl = new TextEditingController();
+  TextEditingController proDetailCtrl = new TextEditingController();
   TextEditingController proPriceCtrl = new TextEditingController();
-  TextEditingController proSizeCtrl = new TextEditingController();
-  TextEditingController proWeightCtrl = new TextEditingController();
+  TextEditingController proCatCtrl = new TextEditingController();
+  TextEditingController proAddrCtrl = new TextEditingController();
   Future<File> file;
   String status = '';
   String base64Image;
@@ -62,9 +190,11 @@ class _FormAddProductState extends State<FormAddProduct> {
                 new ListTile(
                   leading: new Icon(Icons.camera_alt),
                   title: new Text('กล้อง'),
-                  onTap: () {
+                  onTap: () async {
+                    var _file =
+                        await ImagePicker.pickImage(source: ImageSource.camera);
                     setState(() {
-                      file = ImagePicker.pickImage(source: ImageSource.camera);
+                      tmpFile = _file;
                     });
                     Navigator.pop(context);
                   },
@@ -72,9 +202,11 @@ class _FormAddProductState extends State<FormAddProduct> {
                 new ListTile(
                   leading: new Icon(Icons.photo_library),
                   title: new Text('คลังรูปภาพ'),
-                  onTap: () {
+                  onTap: () async {
+                    var _file = await ImagePicker.pickImage(
+                        source: ImageSource.gallery);
                     setState(() {
-                      file = ImagePicker.pickImage(source: ImageSource.gallery);
+                      tmpFile = _file;
                     });
                     Navigator.pop(context);
                   },
@@ -154,8 +286,15 @@ class _FormAddProductState extends State<FormAddProduct> {
   }
 
   addProduct() {
-    print('add product');
-    if (_formKey.currentState.validate()) {}
+    if (_formKey.currentState.validate()) {
+      String proName = proNameCtrl.text;
+      String proDetail = proDetailCtrl.text;
+      String proPrice = proPriceCtrl.text;
+      String proCat = proCatCtrl.text;
+      String proAddr = proAddrCtrl.text;
+
+      print('$proName, $proDetail, $proPrice, $proCat, $proAddr');
+    }
   }
 
   @override
@@ -186,7 +325,7 @@ class _FormAddProductState extends State<FormAddProduct> {
                 }),
             customTextField(
                 secureText: false,
-                controller: proNameCtrl,
+                controller: proDetailCtrl,
                 fillColor: Color(0XFFFFFFFF),
                 label: 'รายละเอียดสินค้า*',
                 val: (value) {
@@ -204,7 +343,7 @@ class _FormAddProductState extends State<FormAddProduct> {
                 }),
             customTextField(
                 secureText: false,
-                controller: proSizeCtrl,
+                controller: proCatCtrl,
                 fillColor: Color(0XFFFFFFFF),
                 label: 'หมวดหมู่*',
                 val: (value) {
@@ -213,7 +352,7 @@ class _FormAddProductState extends State<FormAddProduct> {
                 }),
             customTextField(
                 secureText: false,
-                controller: proWeightCtrl,
+                controller: proAddrCtrl,
                 fillColor: Color(0XFFFFFFFF),
                 label: 'ที่อยู่*',
                 val: (value) {
@@ -223,7 +362,7 @@ class _FormAddProductState extends State<FormAddProduct> {
             SizedBox(height: 25.0),
             cusBtn(
               action: () {
-                addProduct();
+                // addProduct();
               },
               color: Theme.of(context).primaryColor,
               text: 'เพิ่มข้อมูล',

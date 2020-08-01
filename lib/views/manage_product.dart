@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:thaivis_dev_v2/common/cus_appbar.dart';
-import 'package:thaivis_dev_v2/views/add_product%202.dart';
+import 'package:thaivis_dev_v2/views/add_product2.dart';
 import 'package:thaivis_dev_v2/views/edit_product.dart';
 
 class ManageProduct extends StatefulWidget {

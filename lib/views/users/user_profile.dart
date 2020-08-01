@@ -112,12 +112,7 @@ class _UserProfileState extends State<UserProfile> {
                       title: 'อีเมล',
                       content: sn.data['email']
                     ),
-
-
-
-
-
-
+                    
                     SizedBox(height: 20.0),
                     cusBtn(
                       action: () => logout(),
