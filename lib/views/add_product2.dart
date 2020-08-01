@@ -154,17 +154,14 @@ class _AddProduct2State extends State<AddProduct2> {
 
       print('addpro: $proName, $proDetail, $proPrice, $proCat, $proAddr');
 
-      if (proCat == '1') {
-        print('chkcat: 1');
-
-        setState(() {
+      setState(() {
           loading = true;
         });
 
         await uploadImage();
         print('imgurl: $_uploadedFileURL');
 
-        firestore.collection('foods').add({
+        firestore.collection('products').add({
           'name': proName,
           'detail': proDetail,
           'price': proPrice,
@@ -178,121 +175,145 @@ class _AddProduct2State extends State<AddProduct2> {
           loading = false;
         });
 
+      // if (proCat == '1') {
+      //   print('chkcat: 1');
 
-      }else if(proCat == '2'){
+      //   setState(() {
+      //     loading = true;
+      //   });
+
+      //   await uploadImage();
+      //   print('imgurl: $_uploadedFileURL');
+
+      //   firestore.collection('foods').add({
+      //     'name': proName,
+      //     'detail': proDetail,
+      //     'price': proPrice,
+      //     'cat': proCat,
+      //     'addr': proAddr,
+      //     'visaid': uid,
+      //     'img': _uploadedFileURL
+      //   });
+
+      //   setState(() {
+      //     loading = false;
+      //   });
 
 
-         setState(() {
-          loading = true;
-        });
+      // }else if(proCat == '2'){
 
-        await uploadImage();
-        print('imgurl: $_uploadedFileURL');
 
-        firestore.collection('drinks').add({
-          'name': proName,
-          'detail': proDetail,
-          'price': proPrice,
-          'cat': proCat,
-          'addr': proAddr,
-          'visaid': uid,
-          'img': _uploadedFileURL
-        });
+      //    setState(() {
+      //     loading = true;
+      //   });
 
-        setState(() {
-          loading = false;
-        });
+      //   await uploadImage();
+      //   print('imgurl: $_uploadedFileURL');
 
-      }else if(proCat == '3'){
+      //   firestore.collection('drinks').add({
+      //     'name': proName,
+      //     'detail': proDetail,
+      //     'price': proPrice,
+      //     'cat': proCat,
+      //     'addr': proAddr,
+      //     'visaid': uid,
+      //     'img': _uploadedFileURL
+      //   });
 
-        setState(() {
-          loading = true;
-        });
+      //   setState(() {
+      //     loading = false;
+      //   });
 
-        await uploadImage();
-        print('imgurl: $_uploadedFileURL');
+      // }else if(proCat == '3'){
 
-        firestore.collection('costumes').add({
-          'name': proName,
-          'detail': proDetail,
-          'price': proPrice,
-          'cat': proCat,
-          'addr': proAddr,
-          'visaid': uid,
-          'img': _uploadedFileURL
-        });
+      //   setState(() {
+      //     loading = true;
+      //   });
 
-        setState(() {
-          loading = false;
-        });
+      //   await uploadImage();
+      //   print('imgurl: $_uploadedFileURL');
 
-      }else if(proCat == '4'){
+      //   firestore.collection('costumes').add({
+      //     'name': proName,
+      //     'detail': proDetail,
+      //     'price': proPrice,
+      //     'cat': proCat,
+      //     'addr': proAddr,
+      //     'visaid': uid,
+      //     'img': _uploadedFileURL
+      //   });
 
-        setState(() {
-          loading = true;
-        });
+      //   setState(() {
+      //     loading = false;
+      //   });
 
-        await uploadImage();
-        print('imgurl: $_uploadedFileURL');
+      // }else if(proCat == '4'){
 
-        firestore.collection('accessories').add({
-          'name': proName,
-          'detail': proDetail,
-          'price': proPrice,
-          'cat': proCat,
-          'addr': proAddr,
-          'visaid': uid,
-          'img': _uploadedFileURL
-        });
+      //   setState(() {
+      //     loading = true;
+      //   });
 
-        setState(() {
-          loading = false;
-        });
+      //   await uploadImage();
+      //   print('imgurl: $_uploadedFileURL');
 
-      }else if(proCat == '5'){
-        setState(() {
-          loading = true;
-        });
+      //   firestore.collection('accessories').add({
+      //     'name': proName,
+      //     'detail': proDetail,
+      //     'price': proPrice,
+      //     'cat': proCat,
+      //     'addr': proAddr,
+      //     'visaid': uid,
+      //     'img': _uploadedFileURL
+      //   });
 
-        await uploadImage();
-        print('imgurl: $_uploadedFileURL');
+      //   setState(() {
+      //     loading = false;
+      //   });
 
-        firestore.collection('wickers').add({
-          'name': proName,
-          'detail': proDetail,
-          'price': proPrice,
-          'cat': proCat,
-          'addr': proAddr,
-          'visaid': uid,
-          'img': _uploadedFileURL
-        });
+      // }else if(proCat == '5'){
+      //   setState(() {
+      //     loading = true;
+      //   });
 
-        setState(() {
-          loading = false;
-        });
-      }else{
-        setState(() {
-          loading = true;
-        });
+      //   await uploadImage();
+      //   print('imgurl: $_uploadedFileURL');
 
-        await uploadImage();
-        print('imgurl: $_uploadedFileURL');
+      //   firestore.collection('wickers').add({
+      //     'name': proName,
+      //     'detail': proDetail,
+      //     'price': proPrice,
+      //     'cat': proCat,
+      //     'addr': proAddr,
+      //     'visaid': uid,
+      //     'img': _uploadedFileURL
+      //   });
 
-        firestore.collection('services').add({
-          'name': proName,
-          'detail': proDetail,
-          'price': proPrice,
-          'cat': proCat,
-          'addr': proAddr,
-          'visaid': uid,
-          'img': _uploadedFileURL
-        });
+      //   setState(() {
+      //     loading = false;
+      //   });
+      // }else{
+      //   setState(() {
+      //     loading = true;
+      //   });
 
-        setState(() {
-          loading = false;
-        });
+      //   await uploadImage();
+      //   print('imgurl: $_uploadedFileURL');
 
-      }
+      //   firestore.collection('services').add({
+      //     'name': proName,
+      //     'detail': proDetail,
+      //     'price': proPrice,
+      //     'cat': proCat,
+      //     'addr': proAddr,
+      //     'visaid': uid,
+      //     'img': _uploadedFileURL
+      //   });
+
+      //   setState(() {
+      //     loading = false;
+      //   });
+
+      // }
     }
   }
 
