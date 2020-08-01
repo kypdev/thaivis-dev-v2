@@ -5,6 +5,15 @@ import 'package:thaivis_dev_v2/common/cus_btn.dart';
 import 'package:thaivis_dev_v2/common/cus_tf.dart';
 
 class PriceDetail extends StatefulWidget {
+  final img;
+  final title;
+  final detail;
+  final price;
+  final visaname;
+
+  const PriceDetail(
+      {Key key, this.img, this.title, this.detail, this.price, this.visaname})
+      : super(key: key);
   @override
   _PriceDetailState createState() => _PriceDetailState();
 }
@@ -13,7 +22,7 @@ class _PriceDetailState extends State<PriceDetail> {
   var rating = 3.0;
   TextEditingController reviewsCtrl = new TextEditingController();
 
-  sendReview(){
+  sendReview() {
     print('send reviews');
   }
 
@@ -47,7 +56,8 @@ class _PriceDetailState extends State<PriceDetail> {
                       ),
                       image: DecorationImage(
                         image: NetworkImage(
-                            'http://telugukshatriyamatrimony.com/img/no_image_startup.png'),
+                          widget.img,
+                        ),
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -57,17 +67,17 @@ class _PriceDetailState extends State<PriceDetail> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Text(
-                        'ชื่อสินค้า: xxxxxxxxxxxxxxx',
+                        'ชื่อสินค้า: ${widget.title}',
                         style: TextStyle(fontSize: 24.0),
                       ),
                       Text(
-                        'XXX-',
+                        '${widget.price} -',
                         style: TextStyle(fontSize: 24.0),
                       ),
                     ],
                   ),
                   Text(
-                    'รายละเอียดสินค้า: xxxxxxxxxxxxxxx',
+                    'รายละเอียดสินค้า: ${widget.detail}',
                     style: TextStyle(fontSize: 24.0),
                   ),
                   Text(

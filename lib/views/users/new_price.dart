@@ -9,9 +9,15 @@ class NewPrice extends StatefulWidget {
 }
 
 class _NewPriceState extends State<NewPrice> {
-  showPriceDetail(context) {
+  showPriceDetail(context, String img, String title, String price, String detail, String visaname, ) {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => PriceDetail()));
+        context, MaterialPageRoute(builder: (context) => PriceDetail(
+          img: img,
+          title: title,
+          price: price,
+          detail: detail,
+          visaname: visaname,
+        )));
   }
 
   String uid;
@@ -32,6 +38,8 @@ class _NewPriceState extends State<NewPrice> {
     userId();
   }
 
+  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,10 +58,20 @@ class _NewPriceState extends State<NewPrice> {
                   return ListView(
                     children:
                         snapshot.data.documents.map((DocumentSnapshot docs) {
-                      return cardItem(
-                        image: docs['img'],
-                        proName: docs['name'],
-                        price: docs['price'],
+                      return InkWell(
+                        onTap: (){
+                          var img = docs['img'];
+                          var title = docs['name'];
+                          var price = docs['price'];
+                          var detail = docs['detail'];
+                          var visaname = 'visa name';
+                          showPriceDetail(context, img, title, price, detail, visaname);
+                        },
+                                              child: cardItem(
+                          image: docs['img'],
+                          proName: docs['name'],
+                          price: docs['price'],
+                        ),
                       );
                     }).toList(),
                   );
